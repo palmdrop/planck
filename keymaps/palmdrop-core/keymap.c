@@ -52,10 +52,15 @@ enum planck_keycodes {
 #define CTLSFTI   LCTL(LSFT(KC_I))
 #define CTLALTDEL LCTL(LSFT(KC_I))
 
+#define COPY  LCTL(KC_C)
+#define PASTE LCTL(KC_V)
+#define UNDO  LCTL(KC_Z)
+#define REDO  LCTL(LSFT(KC_Z))
+
 // Combos
-const uint16_t PROGMEM meta_combo[]      = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM escape_combo[]    = {KC_F, KC_J, COMBO_END};
-const uint16_t PROGMEM backspace_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM meta_combo[]      = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END};
+const uint16_t PROGMEM escape_combo[]    = {LCTL_T(KC_F), KC_J,         COMBO_END};
+const uint16_t PROGMEM backspace_combo[] = {KC_J,         KC_K,         COMBO_END};
 
 combo_t key_combos[] = {
   COMBO(meta_combo, KC_LGUI),
@@ -160,10 +165,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_NAVIGATION] = LAYOUT_planck_grid(
-      _______,   _______,  LCTL(KC_RGHT),  _______,         LSFT(KC_UNDO),  _______,        KC_COPY,  KC_UNDO,  KC_HOME,  KC_ENT,   KC_PSTE,  KC_BSPC,
-      _______,   KC_END,   KC_LALT,        LSFT_T(KC_DEL),  KC_LCTL,        TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_WH_U,  RCTL(KC_BSPC),
-      KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,        LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_WH_D,  _______,
-      _______,   _______,  _______,        _______,         _______,        KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,  _______,  _______
+      _______,   _______,  LCTL(KC_RGHT),  _______,         REDO,     _______,        COPY,     UNDO,     KC_HOME,  KC_ENT,   PASTE,    KC_BSPC,
+      _______,   KC_END,   KC_LALT,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_WH_U,  RCTL(KC_BSPC),
+      KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,  LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_WH_D,  _______,
+      _______,   _______,  _______,        _______,         _______,  KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,  _______,  _______
   ),
 
   /* Command

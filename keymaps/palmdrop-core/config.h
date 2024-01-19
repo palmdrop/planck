@@ -22,7 +22,7 @@
 // Standard settings
 #define NO_AUTO_SHIFT_NUMERIC
 #define NO_AUTO_SHIFT_ALPHA
-#define TAPPING_TERM 120 // NOTE: testing a low tapping term
+#define TAPPING_TERM 160 // NOTE: testing a low tapping term
 // #define RETRO_TAP // TODO: figure out if mod masks are needed: https://precondition.github.io/home-row-mods#retro-tapping, and maybe disable entirely
 #define QUICK_TAP_TERM 0
 #define DEBOUNCE 10
