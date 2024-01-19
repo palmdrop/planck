@@ -10,7 +10,7 @@ Inpsired by https://github.com/Felerius/planck-layout
   - [-] alternatively, try the next sentence macro: https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
 - [ ] try word selection feature: https://getreuer.info/posts/keyboards/select-word/index.html
   - [ ] alternatively, using macros: https://getreuer.info/posts/keyboards/macros/index.html#select-word-macro
-- [ ] home row mods on all layers
+- [X] home row mods on all (relevant) layers
 - [X] special typing mode for camelcase, underscore for spaces, caps etc
 - [ ] record dynamic macro all the time, stop with escape, then swap to recordingthe next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
 - [ ] left-handed command layer access and easy backspace with left hand
