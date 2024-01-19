@@ -428,7 +428,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case NAVESQ: 
       if (record->tap.count && record->event.pressed) {
-        disable_caps();
+        if (is_caps_enabled) {
+          disable_caps();
+          return false;
+        }
+
         return true;
       }
       break;
