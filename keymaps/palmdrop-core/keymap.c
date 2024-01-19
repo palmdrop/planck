@@ -105,16 +105,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |------+------+------+------+------+------+------+------+------+------+------+------|
   * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   Ö  |  Ä   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Bspc |
+  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Rep  |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |      |      | Gui  | Tab  |Lower |    Space    |Raise |Shift |      |  Tab | Enter|
+  * | Rep  |      | Gui  | Alt  |Lower |    Space    |Raise |Shift |      |  Tab | Enter|
   * `-----------------------------------------------------------------------------------'
   */
   [_BASE] = LAYOUT_planck_grid(
       KC_TAB,  KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,         KC_P,            SE_ARNG,
       NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,     RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
-      KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,       SE_MINS,         KC_BSPC,
-      _______, _______, KC_LGUI,      LALT_T(KC_TAB), LOWER,        KC_SPC,  KC_SPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
+      KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,       SE_MINS,         QK_REP,
+      QK_REP,  _______, KC_LGUI,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
   ),
 
   /* Lower
@@ -224,7 +224,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       return true;
     default:
-      // Do not select the hold action when another key is pressed.
       return false;
   }
 }
@@ -232,11 +231,22 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 
 // Backlight
 #define RGB_BASE {0x59, 0x9c, 0x32}
+#define RGB_LBASE {0x39, 0x7c, 0x12}
+
 #define RGB_LOWER {0x58, 0x8c, 0x69}
+#define RGB_LLOWER {0x38, 0x6c, 0x49}
+
 #define RGB_RAISE {0x38, 0x8c, 0x6e}
+#define RGB_LRAISE {0x18, 0x6c, 0x4e}
+
 #define RGB_NAV {0x58, 0x8c, 0x69}
+#define RGB_LNAV {0x38, 0x6c, 0x49}
+
 #define RGB_CMD {0x58, 0x8c, 0x69}
+#define RGB_LCMD {0x38, 0x6c, 0x49}
+
 #define RGB_ADJST {0x58, 0x8c, 0x69}
+#define RGB_LADJST {0x38, 0x6c, 0x49}
 
 /*
 [_LAYER] = {
@@ -252,42 +262,42 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
-    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_BASE,      RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_LBASE,     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
   },
 
   [_LOWER] = {
     RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,
     RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,
     RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,
-    RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,      RGB_LOWER,       RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER
+    RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,      RGB_LLOWER,      RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER
   },
 
   [_RAISE] = {
     RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,
     RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,
     RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,
-    RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,       RGB_RAISE,      RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE
+    RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,       RGB_LRAISE,     RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE
   },
 
   [_NAVIGATION] = {
     RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,
     RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,
     RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,
-    RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,      RGB_NAV,     RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV
+    RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,      RGB_LNAV,    RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV
   },
 
   [_COMMAND] = {
     RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,
     RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,
     RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,
-    RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,      RGB_CMD,     RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD
+    RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,      RGB_LCMD,    RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD
   },
 
   [_ADJUST] = {
     RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,
     RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,
     RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,
-    RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,       RGB_ADJST,      RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST
+    RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,       RGB_LADJST,     RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST
   }
 };
 
