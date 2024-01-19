@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Lower
   * ,-----------------------------------------------------------------------------------.
-  * |   ~  |   !  |   "  |   #  |   ¤  |   %  |   &  |   /  |   (  |   )  |   =  |  ?   |
+  * |   ~  |  !   |   "  |   #  |   ¤  |   %  |   &  |   /  |   (  |   )  |   =  |  ?   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
   * |   ´  |  `   |   '  |   (  |   )  |   $  |   \  |   {  |   }  |   ~  |   ^  |  *   |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -220,6 +220,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Per key settings
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case NAVSPC: 
+      return TAPPING_TERM + 50;
     default:
       return TAPPING_TERM;
   }

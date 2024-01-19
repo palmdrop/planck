@@ -7,6 +7,7 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] disable caps lock with escape
 - [ ] special typing mode for camelcase, underscore for spaces, caps etc
 - [ ] type "~"  without having to press space (use macro?)
+  * same for ` and ´
 - [ ] try this https://docs.qmk.fm/#/feature_advanced_keycodes?id=alt-escape-for-alt-tab
 - [ ] switch to https://qmk.github.io/qmk_distro_wsl/
   * compilation without WSL is way too slow
