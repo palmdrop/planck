@@ -19,6 +19,7 @@
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
 #include "features/layer_lock.h"
+#include "features/sentence_case.h"
 
 #ifdef AUDIO_ENABLE
 #    include "muse.h"
@@ -55,6 +56,7 @@ enum custom_keycodes {
   CK_OSFT = SAFE_RANGE, // custom one-shot shift
   CK_CAPS, // custom caps
   CK_LLCK, // layer lock
+  CK_SNTC, // sentence case
 
   // Dummy keycodes
   CK_TILD, // ~
@@ -175,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8, KC_9,    KC_0,    SE_PLUS,
       TO(_BASE), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5, KC_6,    KC_0,    KC_DOT,
       _______,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_1,    KC_2, KC_3,    SE_MINS, _______,
-      _______,   _______, _______, _______, CK_LLCK, _______, _______, _______, KC_0, _______, _______, _______
+      _______,   _______, _______, CK_LLCK, _______, _______, _______, _______, KC_0, _______, _______, _______
   ),
 
   /* Navigation
@@ -193,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   _______,  LCTL(KC_RGHT),  _______,         REDO,     _______,        COPY,     UNDO,     KC_HOME,  KC_ENT,           PASTE,           KC_BSPC,
       TO(_BASE), KC_END,   KC_LALT,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    RSFT_T(KC_RGHT),  RCTL_T(KC_WH_U), RCTL(KC_BSPC),
       KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,  LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,          KC_WH_D,         _______,
-      _______,   _______,  _______,        _______,         CK_LLCK,  KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,          _______,         _______
+      _______,   _______,  _______,        CK_LLCK,         _______,  KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,          _______,         _______
   ),
 
   /* Command
@@ -210,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COMMAND] = LAYOUT_planck_grid(
                  // NOTE: Could maybe access rec2 by double-tapping?
                  // NOTE: could also mabye use leader key for creating macros?
-      DM_PLY1,   DM_REC1,  _______,  _______,  _______, _______,   _______,  _______,    CTLSFTI,     _______,      LSFT(KC_INS), CTLALTDEL,
+      DM_PLY1,   DM_REC1,  CK_SNTC,  _______,  _______, _______,   _______,  _______,    CTLSFTI,     _______,      LSFT(KC_INS), CTLALTDEL,
       CK_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  TO(_CAMEL), TO(_SNAKE),  TO(_KEBAB),   CK_CONSTANT,  _______,
       _______,   _______,  _______,  CW_TOGG,  _______, _______,   _______,  _______,    _______,     _______,      _______,      _______,
       _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,    _______,     _______,      _______,      _______
@@ -495,9 +497,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		return false;
 	}
 
-  // Process layer lock
+  // layer lock feature
   // https://getreuer.info/posts/keyboards/layer-lock/index.html
   if (!process_layer_lock(keycode, record, CK_LLCK)) {
+    return false;
+  }
+
+  // sentence case feature
+  if (!process_sentence_case(keycode, record)) {
     return false;
   }
 
@@ -569,6 +576,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING("^");
       }
+      return false;
+
+    /* FEATURES */
+    case CK_SNTC:
+      sentence_case_toggle();
       return false;
   }
   return true;

@@ -11,6 +11,8 @@ CAPS_WORD_ENABLE = yes
 LEADER_ENABLE = yes
 
 SRC += features/layer_lock.c
+SRC += features/sentence_case.c
+
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += muse.c
 endif

@@ -36,4 +36,5 @@ Inpsired by https://github.com/Felerius/planck-layout
 * oneshot shift on right thumb (RAISE) for easy capitalization of letters
 * leader keys for complex shortcuts and one-handed modifiers
 * special layers for variable name input in different conventions. Probably totally unnecessary but slightly fun.
+* sentence case feature
 * ~~hold space to enter navigation layer~~
