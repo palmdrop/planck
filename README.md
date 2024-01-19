@@ -13,6 +13,7 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] home row mods on all (relevant) layers
 - [X] special typing mode for camelcase, underscore for spaces, caps etc
 - [ ] match leader sequences eagerly, i.e if a sequence no longer matches, execute the LONGEST matching sequence and send the other presses as regular key codes.
+- [ ] scavanage https://github.com/drootz/qmk_firmware/tree/dz65_drootz/keyboards/dztech/dz65rgb/keymaps/drootz#LEADER-KEY-BINDINGS for goodness.
 - [ ] record dynamic macro all the time, stop with escape, then swap to recording the next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
 - [ ] left-handed command layer access and easy backspace with left hand
 - [X] type "~"  without having to press space (use macro?)
