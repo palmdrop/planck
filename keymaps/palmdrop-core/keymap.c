@@ -56,7 +56,7 @@ combo_t key_combos[] = {
   COMBO(meta_combo, KC_LGUI),
   COMBO(escape_combo, KC_ESC),
   COMBO(backspace_combo, KC_BSPC)
-}
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
