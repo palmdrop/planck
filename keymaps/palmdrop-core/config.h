@@ -53,7 +53,7 @@
 #define MOUSEWHEEL_TIME_TO_MAX 40
 
 // Special features
-#define LAYER_LOCK_IDLE_TIMEOUT 10000 // Disable layer locks after 10s of idle time
+#define LAYER_LOCK_IDLE_TIMEOUT 60000 // Disable layer locks after 10s of idle time
 
 // From default
 #ifdef AUDIO_ENABLE
