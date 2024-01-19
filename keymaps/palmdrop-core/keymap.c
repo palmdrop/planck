@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       QK_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,         KC_P,            SE_ARNG,
       NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,     RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
       KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,       SE_MINS,         QK_REP,
-      QK_REP,  _______, KC_LGUI,      KC_LALT,        LOWER,        NAVSPC,  NAVSPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
+      QK_REP,  _______, KC_LGUI,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
   ),
 
   /* Lower
@@ -184,10 +184,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_NAVIGATION] = LAYOUT_planck_grid(
-      _______,   _______,  LCTL(KC_RGHT),  _______,         REDO,     _______,        COPY,     UNDO,     KC_HOME,  KC_ENT,   PASTE,    KC_BSPC,
-      _______,   KC_END,   KC_LALT,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_WH_U,  RCTL(KC_BSPC),
-      KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,  LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_WH_D,  _______,
-      _______,   _______,  _______,        _______,         _______,  KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,  _______,  _______
+      _______,   _______,  LCTL(KC_RGHT),  _______,         REDO,     _______,        COPY,     UNDO,     KC_HOME,  KC_ENT,           PASTE,           KC_BSPC,
+      _______,   KC_END,   KC_LALT,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    RSFT_T(KC_RGHT),  RCTL_T(KC_WH_U), RCTL(KC_BSPC),
+      KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,  LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,          KC_WH_D,         _______,
+      _______,   _______,  _______,        _______,         _______,  KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,          _______,         _______
   ),
 
   /* Command
@@ -254,13 +254,14 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 
 // Backlight
 #define RGB_BASE {0x49, 0x67, 0x13}
-#define RGB_LBASE {0x39, 0x7c, 0x12}
+#define RGB_LBASE {0x03, 0x04, 0x01}
+// #define RGB_LBASE {0xFF, 0x00, 0x00}
 
 #define RGB_LOWER {0x58, 0x8c, 0x69}
-#define RGB_LLOWER {0x38, 0x6c, 0x49}
+#define RGB_LLOWER {0x28, 0x5c, 0x39}
 
 #define RGB_RAISE {0x38, 0x8c, 0x6e}
-#define RGB_LRAISE {0x18, 0x6c, 0x4e}
+#define RGB_LRAISE {0x08, 0x5c, 0x3e}
 
 #define RGB_NAV {0x58, 0x8c, 0x69}
 #define RGB_LNAV {0x38, 0x6c, 0x49}
@@ -285,7 +286,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
-    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_BASE,      RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_LBASE,     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
   },
   /*
   [_BASE] = {

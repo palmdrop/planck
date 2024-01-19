@@ -14,7 +14,7 @@ Inpsired by https://github.com/Felerius/planck-layout
   * compilation without WSL is way too slow
 
 # ISSUES
-- [ ] enter sometimes blocks input and then inputs many enters after a while. Issue started when introducing repeat key.
+- ~~enter sometimes blocks input and then inputs many enters after a while. Issue started when introducing repeat key.~~
 
 # NOTES
 * To make dynamic macros work, I had to make some changes from the documentation: https://github.com/qmk/qmk_firmware/blob/bade8be66c3440cc91db1d56d3a29a5b5af226dc/readme.md#dynamic-macros-record-and-replay-macros-in-runtime
@@ -24,4 +24,4 @@ Inpsired by https://github.com/Felerius/planck-layout
 # EXPERIMENTS
 * oneshot shift on right thumb (RAISE) for easy capitalization of letters
 * leader keys for complex shortcuts and one-handed modifiers
-* hold space to enter navigation layer
+* ~~hold space to enter navigation layer~~
