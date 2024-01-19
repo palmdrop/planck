@@ -38,6 +38,9 @@
 // to avoid accidentally triggering the tap action.
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
+// Enables stopping macro recording by tapping layer keys for layer used to access macro record keys
+#define DYNAMIC_MACRO_USER_CALL
+
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_TIME_TO_MAX 60
 #define MOUSEKEY_INTERVAL 20

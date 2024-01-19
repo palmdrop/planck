@@ -183,7 +183,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_COMMAND] = LAYOUT_planck_grid(
-      _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  CTLSFTI,  _______,  LSFT(KC_INS), CTLALTDEL,
+                 // NOTE: Could maybe access rec2 by double-tapping?
+                 // NOTE: could also mabye use leader key for creating macros?
+      DM_PLY1,   DM_REC1,  _______,  _______,  _______, _______,   _______,  _______,  CTLSFTI,  _______,  LSFT(KC_INS), CTLALTDEL,
       KC_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
       _______,   _______,  _______,  CW_TOGG,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
       _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______
@@ -347,7 +349,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
 }
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_dynamic_macros.md#dynamic_macro_user_call
+	uint16_t macro_kc = ((keycode == NAVESQ) ? DM_RSTP : keycode);
+
+	if (!process_dynamic_macro(macro_kc, record)) {
+		return false;
+	}
+
+  /*
   switch (keycode) {
     case BASE:
       if (record->event.pressed) {
@@ -382,6 +393,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
   }
+  */
   return true;
 }
 
