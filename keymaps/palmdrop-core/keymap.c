@@ -595,6 +595,10 @@ void leader_end_user(void) {
   }
 }
 
+void matrix_scan_user(void) {
+  // Ensures that layer locks are disabled after some idle time
+  layer_lock_task();
+}
 
 /*
 bool muse_mode = false;
