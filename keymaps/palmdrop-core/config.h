@@ -16,11 +16,32 @@
 
 #pragma once
 
+// Custom settings
 #define DISABLE_LAYER_LED
-#define TAPPING_TERM 200
 
+// Standard settings
+#define NO_AUTO_SHIFT_NUMERIC
+#define NO_AUTO_SHIFT_ALPHA
 
+#define TAPPING_TERM 190
+#define DEBOUNCE 10
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_FORCE_HOLD
 
+#define COMBO_TERM 50
+
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_TIME_TO_MAX 60
+#define MOUSEKEY_INTERVAL 20
+#define MOUSEKEY_MAX_SPEED 5
+
+#define MOUSEWHEEL_INTERVAL 100
+#define MOUSEWHEEL_MAX_SPEED 8
+#define MOUSEWHEEL_DELAY 400
+#define MOUSEWHEEL_TIME_TO_MAX 40
+
+// From default
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(PLANCK_SOUND)
 // #define STARTUP_SONG SONG(NO_SOUND)
