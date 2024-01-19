@@ -18,6 +18,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
+#include "features/layer_lock.h"
 
 #ifdef AUDIO_ENABLE
 #    include "muse.h"
@@ -50,13 +51,18 @@ enum planck_keycodes {
 };
 
 enum custom_keycodes {
-  UR_OSFT = SAFE_RANGE, // Custom one-shot shift
-  UR_CAPS,
-  UR_TILD, // ~
-  UR_GRV,  // `
-  UR_CIRC,  // ^
+  // Special functions
+  CK_OSFT = SAFE_RANGE, // custom one-shot shift
+  CK_CAPS, // custom caps
+  CK_LLCK, // layer lock
 
-  UR_CONSTANT
+  // Dummy keycodes
+  CK_TILD, // ~
+  CK_GRV,  // `
+  CK_CIRC,  // ^
+
+  // Dummy layer
+  CK_CONSTANT
 };
 
 // Multi-key codes
@@ -71,7 +77,7 @@ enum custom_keycodes {
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
 // #define RAISE  LT(_RAISE, KC_BSPC)
-#define RAISE  LT(_RAISE, UR_OSFT)
+#define RAISE  LT(_RAISE, CK_OSFT)
 #define ADJUST MO(_ADJUST)
 #define NAVESQ LT(_NAVIGATION, KC_ESC)
 #define NAVSPC LT(_NAVIGATION, KC_SPC)
@@ -149,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_LOWER] = LAYOUT_planck_grid(
       SE_TILD, KC_EXLM, SE_DQUO, KC_HASH, SE_CURR, KC_PERC, SE_AMPR, SE_SLSH, SE_LPRN, SE_RPRN, SE_EQL,  SE_QUES,
-      SE_ACUT, UR_GRV,  SE_QUOT, SE_LPRN, SE_RPRN, SE_DLR,  SE_BSLS, SE_LCBR, SE_RCBR, UR_TILD, UR_CIRC, SE_ASTR,
+      SE_ACUT, CK_GRV,  SE_QUOT, SE_LPRN, SE_RPRN, SE_DLR,  SE_BSLS, SE_LCBR, SE_RCBR, CK_TILD, CK_CIRC, SE_ASTR,
       KC_LSFT, SE_LABK, SE_RABK, SE_LBRC, SE_RBRC, SE_PIPE, SE_AT,   SE_BSLS, SE_SCLN, SE_COLN, SE_UNDS, SE_PLUS,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RSFT_T(KC_ENTER)
   ),
@@ -169,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8, KC_9,    KC_0,    SE_PLUS,
       TO(_BASE), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5, KC_6,    KC_0,    KC_DOT,
       _______,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_1,    KC_2, KC_3,    SE_MINS, _______,
-      _______,   _______, _______, _______, _______, _______, _______, _______, KC_0, _______, _______, _______
+      _______,   _______, _______, _______, CK_LLCK, _______, _______, _______, KC_0, _______, _______, _______
   ),
 
   /* Navigation
@@ -185,9 +191,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_NAVIGATION] = LAYOUT_planck_grid(
       _______,   _______,  LCTL(KC_RGHT),  _______,         REDO,     _______,        COPY,     UNDO,     KC_HOME,  KC_ENT,           PASTE,           KC_BSPC,
-      _______,   KC_END,   KC_LALT,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    RSFT_T(KC_RGHT),  RCTL_T(KC_WH_U), RCTL(KC_BSPC),
+      TO(_BASE), KC_END,   KC_LALT,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    RSFT_T(KC_RGHT),  RCTL_T(KC_WH_U), RCTL(KC_BSPC),
       KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,  LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,          KC_WH_D,         _______,
-      _______,   _______,  _______,        _______,         _______,  KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,          _______,         _______
+      _______,   _______,  _______,        _______,         CK_LLCK,  KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,          _______,         _______
   ),
 
   /* Command
@@ -205,7 +211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  // NOTE: Could maybe access rec2 by double-tapping?
                  // NOTE: could also mabye use leader key for creating macros?
       DM_PLY1,   DM_REC1,  _______,  _______,  _______, _______,   _______,  _______,    CTLSFTI,     _______,      LSFT(KC_INS), CTLALTDEL,
-      UR_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  TO(_CAMEL), TO(_SNAKE),  TO(_KEBAB),   UR_CONSTANT,  _______,
+      CK_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  TO(_CAMEL), TO(_SNAKE),  TO(_KEBAB),   CK_CONSTANT,  _______,
       _______,   _______,  _______,  CW_TOGG,  _______, _______,   _______,  _______,    _______,     _______,      _______,      _______,
       _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,    _______,     _______,      _______,      _______
   ),
@@ -428,10 +434,12 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 // Misc
+/*
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
+*/
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
@@ -479,14 +487,21 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Custom code for stop recording dynamic macros using escape
   // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_dynamic_macros.md#dynamic_macro_user_call
 	uint16_t macro_kc = ((keycode == NAVESQ) ? DM_RSTP : keycode);
-
 	if (!process_dynamic_macro(macro_kc, record)) {
     disable_caps();
 		return false;
 	}
 
+  // Process layer lock
+  // https://getreuer.info/posts/keyboards/layer-lock/index.html
+  if (!process_layer_lock(keycode, record, CK_LLCK)) {
+    return false;
+  }
+
+  // Other keys...
   switch (keycode) {
     /* LAYER MANAGEMENT */
 
@@ -514,7 +529,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     // Enter CONSTANT_CASE layer by moving to snake_case layer with shift modifier activated
-    case UR_CONSTANT: 
+    case CK_CONSTANT: 
       if (record->event.pressed) {
         layer_move(_SNAKE);
         register_mods(MOD_BIT(KC_LSFT));
@@ -534,23 +549,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* CUSTOM KEYCODES */
 
     // Manually manage caps to easily keep track of caps state
-    case UR_CAPS: 
+    case CK_CAPS: 
       if (record->event.pressed) {
         toggle_caps();
       }
       return false;
     // Make it easier to send ~, ` and ^ on swedish layouts
-    case UR_TILD: 
+    case CK_TILD: 
       if (record->event.pressed) {
         SEND_STRING("~");
       }
       return false;
-    case UR_GRV: 
+    case CK_GRV: 
       if (record->event.pressed) {
         SEND_STRING("`");
       }
       return false;
-    case UR_CIRC: 
+    case CK_CIRC: 
       if (record->event.pressed) {
         SEND_STRING("^");
       }
@@ -559,6 +574,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void leader_end_user(void) {
+  // Modifiers
+  //  C + S + T => Ctrl + Shift + T
+  if(leader_sequence_three_keys(KC_C, KC_S, KC_T)) {
+    tap_code16(LCTL(LSFT(KC_T)));
+  } else 
+  // C + T => Ctrl + T
+  if(leader_sequence_two_keys(KC_C, KC_T)) {
+    tap_code16(LCTL(KC_T));
+  } else 
+  // D => Delete
+  if(leader_sequence_one_key(KC_D)) {
+    tap_code16(KC_DEL);
+  } else 
+  // G + U => Commit and push basic git updates
+  // NOTE: Mostly used for note-taking and writing repos, not code.
+  if(leader_sequence_two_keys(KC_G, KC_U)) {
+    SEND_STRING("git add .; git commit -m \"update\"; git push");
+  }
+}
+
+
+/*
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
@@ -629,24 +667,4 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     }
     return true;
 }
-
-void leader_end_user(void) {
-  // Modifiers
-  //  C + S + T => Ctrl + Shift + T
-  if(leader_sequence_three_keys(KC_C, KC_S, KC_T)) {
-    tap_code16(LCTL(LSFT(KC_T)));
-  } else 
-  // C + T => Ctrl + T
-  if(leader_sequence_two_keys(KC_C, KC_T)) {
-    tap_code16(LCTL(KC_T));
-  } else 
-  // D => Delete
-  if(leader_sequence_one_key(KC_D)) {
-    tap_code16(KC_DEL);
-  } else 
-  // G + U => Commit and push basic git updates
-  // NOTE: Mostly used for note-taking and writing repos, not code.
-  if(leader_sequence_two_keys(KC_G, KC_U)) {
-    SEND_STRING("git add .; git commit -m \"update\"; git push");
-  }
-}
+*/

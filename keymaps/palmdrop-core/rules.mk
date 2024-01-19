@@ -10,6 +10,7 @@ DYNAMIC_MACRO_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 LEADER_ENABLE = yes
 
+SRC += features/layer_lock.c
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += muse.c
 endif
