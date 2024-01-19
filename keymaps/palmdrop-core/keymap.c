@@ -47,6 +47,17 @@ enum planck_keycodes {
 #define NAV   MO(_NAVIGATION)
 #define CMD   MO(_COMMAND)
 
+// Combos
+const uint16_t PROGMEM meta_combo[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM escape_combo[] = {KC_F, KC_J, COMBO_END};
+const uint16_t PROGMEM backspace_combo[] = {KC_J, KC_K, COMBO_END};
+
+combo_t key_combos[] = {
+  COMBO(meta_combo, KC_LGUI),
+  COMBO(escape_combo, KC_ESC),
+  COMBO(backspace_combo, KC_BSPC)
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
