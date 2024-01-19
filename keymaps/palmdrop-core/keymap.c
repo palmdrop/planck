@@ -265,6 +265,42 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
   }
 };
 
+void set_layer_color(int layer) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    RGB rgb = {
+      .r = pgm_read_byte(&ledmap[layer][i][0]),
+      .g = pgm_read_byte(&ledmap[layer][i][1]),
+      .b = pgm_read_byte(&ledmap[layer][i][2]),
+    };
+    rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
+  }
+}
+
+bool rgb_matrix_indicators_user(void) {
+  if (g_suspend_state || disable_layer_color) { return; }
+  switch (get_highest_layer(layer_state)) {
+    case _BASE:
+      set_layer_color(_BASE);
+      break;
+    case _LOWER:
+      set_layer_color(_LOWER);
+      break;
+    case _RAISE:
+      set_layer_color(_RAISE);
+      break;
+    case _NAVIGATION:
+      set_layer_color(_NAVIGATION);
+      break;
+    case _COMMAND:
+      set_layer_color(_COMMAND);
+      break;
+    case _ADJUST:
+      set_layer_color(_ADJUST);
+      break;
+  }
+    return false;
+}
+
 // Per key settings
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
