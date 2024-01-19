@@ -63,7 +63,7 @@ enum custom_keycodes {
   // Dummy keycodes
   CK_TILD, // ~
   CK_GRV,  // `
-  CK_CIRC,  // ^
+  CK_CIRC, // ^
 
   // Dummy layer
   CK_CONSTANT
@@ -352,6 +352,15 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_LBASE,     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
   },
+
+  /*
+  [_ADJUST] = {
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_LBASE,     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
+  },
+  */
   /*
   [_BASE] = {
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
@@ -603,14 +612,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void leader_end_user(void) {
   // Modifiers
+  if(leader_sequence_one_key(KC_C)) {
+    set_oneshot_mods(MOD_BIT(KC_LCTL));
+  } else 
+  if(leader_sequence_one_key(KC_S)) {
+    set_oneshot_mods(MOD_BIT(KC_LSFT));
+  } else 
+  if(leader_sequence_two_keys(KC_C, KC_S) || leader_sequence_two_keys(KC_S, KC_C)) {
+    set_oneshot_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
+  } else 
+  /*
   //  C + S + T => Ctrl + Shift + T
   if(leader_sequence_three_keys(KC_C, KC_S, KC_T)) {
     tap_code16(LCTL(LSFT(KC_T)));
   } else 
   // C + T => Ctrl + T
   if(leader_sequence_two_keys(KC_C, KC_T)) {
+    // TODO: could just be C for oneshot ctrl, same for C+S creating oneshot ctrl+shift
     tap_code16(LCTL(KC_T));
   } else 
+  */
   // D => Delete
   if(leader_sequence_one_key(KC_D)) {
     tap_code16(KC_DEL);
