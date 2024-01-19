@@ -6,8 +6,8 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] macros on the fly by "recording" a keysequence, then executing that using command?
 - [X] disable caps lock with escape
 - [X] add layer-lock key for certain layers
-- [ ] try sentence case: https://getreuer.info/posts/keyboards/sentence-case/index.html
-  - [ ] alternatively, try the next sentence macro: https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
+- [X] try sentence case: https://getreuer.info/posts/keyboards/sentence-case/index.html
+  - [-] alternatively, try the next sentence macro: https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
 - [ ] try word selection feature: https://getreuer.info/posts/keyboards/select-word/index.html
   - [ ] alternatively, using macros: https://getreuer.info/posts/keyboards/macros/index.html#select-word-macro
 - [ ] home row mods on all layers

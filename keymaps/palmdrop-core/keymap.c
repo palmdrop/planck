@@ -488,6 +488,8 @@ bool caps_word_press_user(uint16_t keycode) {
   }
 }
 
+bool is_sentence_case_enabled = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Custom code for stop recording dynamic macros using escape
   // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_dynamic_macros.md#dynamic_macro_user_call
@@ -504,7 +506,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // sentence case feature
-  if (!process_sentence_case(keycode, record)) {
+  if (is_sentence_case_enabled && !process_sentence_case(keycode, record)) {
     return false;
   }
 
@@ -580,7 +582,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     /* FEATURES */
     case CK_SNTC:
-      sentence_case_toggle();
+      if (record->event.pressed) {
+        // sentence_case_toggle();
+        is_sentence_case_enabled = !is_sentence_case_enabled;
+      }
       return false;
   }
   return true;
@@ -610,6 +615,59 @@ void leader_end_user(void) {
 void matrix_scan_user(void) {
   // Ensures that layer locks are disabled after some idle time
   layer_lock_task();
+}
+
+char sentence_case_press_user(uint16_t keycode,
+                              keyrecord_t* record,
+                              uint8_t mods) {
+  if ((mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT))) == 0) {
+    const bool shifted = mods & MOD_MASK_SHIFT;
+    switch (keycode) {
+      case KC_LCTL ... KC_RGUI:  // Mod keys.
+        return '\0';  // These keys are ignored.
+
+      case KC_A ... KC_Z:
+      case SE_ARNG:
+      case SE_ADIA:
+      case SE_ODIA:
+        return 'a';  // Letter key.
+
+      case KC_DOT:  // . is punctuation, Shift . is a symbol (>)
+        return !shifted ? '.' : '#';
+      /*
+      case KC_1:
+      case KC_SLSH:
+        return shifted ? '.' : '#';
+      */
+      case KC_EXLM: // !
+        return '.';
+      case SE_QUES: // ?
+        return '.';
+        /*
+      case KC_MINS: // ?
+        return shifted ? '.' : '#';
+        */
+
+      case KC_1 ... KC_0:  // 1 2 3 4 5 6 7 8 9 0
+      /*
+      case KC_MINS ... KC_SCLN:  // - = [ ] ; backslash
+      case KC_GRV:
+      */
+      case KC_COMM:
+        return '#';  // Symbol key.
+
+      case KC_SPC:
+        return ' ';  // Space key.
+
+      // case KC_QUOT:
+      case SE_QUOT:
+        return '\'';  // Quote key.
+    }
+  }
+
+  // Otherwise clear Sentence Case to initial state.
+  sentence_case_clear();
+  return '\0';
 }
 
 /*
