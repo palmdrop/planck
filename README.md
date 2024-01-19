@@ -5,6 +5,7 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] add dual function for extended thumb keys
 - [X] macros on the fly by "recording" a keysequence, then executing that using command?
 - [X] disable caps lock with escape
+- [ ] home row mods on all layers
 - [ ] special typing mode for camelcase, underscore for spaces, caps etc
 - [ ] record dynamic macro all the time, stop with escape, then swap to recordingthe next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
 - [X] type "~"  without having to press space (use macro?)
