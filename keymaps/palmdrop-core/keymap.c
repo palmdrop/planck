@@ -368,6 +368,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
 }
 
+// Caps management
 bool is_caps_enabled = false;
 void toggle_caps(void) {
   is_caps_enabled = !is_caps_enabled;
@@ -380,6 +381,31 @@ void disable_caps(void) {
   if(is_caps_enabled) {
     tap_code16(KC_CAPS);
     is_caps_enabled = false;
+  }
+}
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+      // Keycodes that continue Caps Word, with shift applied.
+      case KC_MINS:
+        return true;
+      case KC_A ... KC_Z:
+      case SE_ARNG:
+      case SE_ADIA:
+      case SE_ODIA:
+        add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+        return true;
+
+      // Keycodes that continue Caps Word, without shifting.
+      case KC_1 ... KC_0:
+      case KC_BSPC:
+      case KC_DEL:
+      case KC_UNDS:
+        return true;
+      
+      // Disable Caps Word
+      default:
+        return false;
   }
 }
 
