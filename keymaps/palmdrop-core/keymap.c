@@ -208,6 +208,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+// Per key settings
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    default:
+      return TAPPING_TERM;
+  }
+};
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // Ensure that hold action is prioritized for layer keys
+    // This ensures that it's possible to roll to these layers without accidentally triggering the tap action.
+    case RAISE:
+    case LOWER:
+      return true;
+    default:
+      // Do not select the hold action when another key is pressed.
+      return false;
+  }
+}
+
 
 // Backlight
 #define RGB_BASE {0x59, 0x9c, 0x32}
@@ -305,18 +326,6 @@ bool rgb_matrix_indicators_user(void) {
   }
     return false;
 }
-
-// Per key settings
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    /* Example
-    case SFT_T(KC_F):
-      return TAPPING_TERM + 50;
-    */
-    default:
-      return TAPPING_TERM;
-  }
-};
 
 // Misc
 #ifdef AUDIO_ENABLE

@@ -22,14 +22,21 @@
 // Standard settings
 #define NO_AUTO_SHIFT_NUMERIC
 #define NO_AUTO_SHIFT_ALPHA
-#define TAPPING_TERM 160 // NOTE: testing a low tapping term
-// #define RETRO_TAP // TODO: figure out if mod masks are needed: https://precondition.github.io/home-row-mods#retro-tapping, and maybe disable entirely
+
+#define TAPPING_TERM 150 
 #define QUICK_TAP_TERM 0
 #define DEBOUNCE 10
+#define COMBO_TERM 50
+
+// Make home row mods usable
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD
 
-#define COMBO_TERM 50
+// Enables configuring behavior of dual function layer keys.
+// Lower and raise (and possibly other layer keys) have dual functions
+// However, when rolling to one of these layers, I need to prioritize the "hold" action
+// to avoid accidentally triggering the tap action.
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_TIME_TO_MAX 60
