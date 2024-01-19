@@ -365,12 +365,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
 }
 
+void disable_caps() {
+  unregister_code16(KC_LSFT);
+  unregister_code16(KC_CAPS);
+  caps_word_off();
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_dynamic_macros.md#dynamic_macro_user_call
 	uint16_t macro_kc = ((keycode == NAVESQ) ? DM_RSTP : keycode);
 
 	if (!process_dynamic_macro(macro_kc, record)) {
+    disable_caps();
 		return false;
 	}
 
@@ -381,6 +387,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         add_oneshot_mods(MOD_BIT(KC_LSFT));
         return false;        
       } 
+      break;
+    case NAVESQ: 
+      disable_caps();
+      break
   }
   return true;
 }
