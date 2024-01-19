@@ -17,6 +17,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
+#include "sendstring_swedish.h"
 
 #ifdef AUDIO_ENABLE
 #    include "muse.h"
@@ -42,6 +43,13 @@ enum planck_keycodes {
   EXT_PLV
 };
 
+enum custom_keycodes {
+  UR_OSFT = SAFE_RANGE,
+  UR_CAPS,
+  UR_TILD,
+  UR_GRV,  // `
+  UR_CIRC   // ^
+};
 // Multi-key codes
 #define CTLSFTI   LCTL(LSFT(KC_I))
 #define CTLALTDEL LCTL(LALT(KC_DEL))
@@ -52,14 +60,18 @@ enum planck_keycodes {
 #define REDO  LCTL(LSFT(KC_Z))
 
 // Dummy keycodes for extended behavior
+// TODO: redefine using enum?
+/*
 #define DMY1 KC_F23
 
 #define UR_CAPS KC_F22
+#define UR_TILD KC_F21
+*/
 
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
 // #define RAISE  LT(_RAISE, KC_BSPC)
-#define RAISE  LT(_RAISE, DMY1)
+#define RAISE  LT(_RAISE, UR_OSFT)
 #define ADJUST MO(_ADJUST)
 #define NAVESQ LT(_NAVIGATION, KC_ESC)
 #define NAVSPC LT(_NAVIGATION, KC_SPC)
@@ -137,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_LOWER] = LAYOUT_planck_grid(
       SE_TILD, KC_EXLM, SE_DQUO, KC_HASH, SE_CURR, KC_PERC, SE_AMPR, SE_SLSH, SE_LPRN, SE_RPRN, SE_EQL,  SE_QUES,
-      SE_ACUT, SE_GRV,  SE_QUOT, SE_LPRN, SE_RPRN, SE_DLR,  SE_BSLS, SE_LCBR, SE_RCBR, SE_TILD, SE_CIRC, SE_ASTR,
+      SE_ACUT, UR_GRV,  SE_QUOT, SE_LPRN, SE_RPRN, SE_DLR,  SE_BSLS, SE_LCBR, SE_RCBR, UR_TILD, UR_CIRC, SE_ASTR,
       KC_LSFT, SE_LABK, SE_RABK, SE_LBRC, SE_RBRC, SE_PIPE, SE_AT,   SE_BSLS, SE_SCLN, SE_COLN, SE_UNDS, SE_PLUS,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RSFT_T(KC_ENTER)
   ),
@@ -441,6 +453,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case UR_CAPS: 
       if (record->event.pressed) {
         toggle_caps();
+      }
+      return false;
+    case UR_TILD: 
+      if (record->event.pressed) {
+        SEND_STRING("~");
+      }
+      return false;
+    case UR_GRV: 
+      if (record->event.pressed) {
+        SEND_STRING("`");
+      }
+      return false;
+    case UR_CIRC: 
+      if (record->event.pressed) {
+        SEND_STRING("^");
       }
       return false;
   }
