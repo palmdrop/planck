@@ -43,14 +43,14 @@ enum planck_keycodes {
 };
 
 // Layers
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
+#define LOWER  LT(_LOWER, KC_TAB)
+#define RAISE  LT(_RAISE, KC_BSPC)
 #define ADJUST MO(_ADJUST)
 #define NAVESQ LT(_NAVIGATION, KC_ESC)
 
 // Multi-key codes
 #define CTLSFTI   LCTL(LSFT(KC_I))
-#define CTLALTDEL LCTL(LSFT(KC_I))
+#define CTLALTDEL LCTL(LALT(KC_DEL))
 
 #define COPY  LCTL(KC_C)
 #define PASTE LCTL(KC_V)
