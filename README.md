@@ -18,3 +18,4 @@ Inpsired by https://github.com/Felerius/planck-layout
 
 # EXPERIMENTS
 * oneshot shift on right thumb (RAISE) for easy capitalization of letters
+* leader keys for complex shortcuts and one-handed modifiers
