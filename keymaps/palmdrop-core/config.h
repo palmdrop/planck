@@ -27,7 +27,7 @@
 #define QUICK_TAP_TERM 0
 #define DEBOUNCE 10
 #define COMBO_TERM 50
-#define LEADER_TIMEOUT 200
+#define LEADER_TIMEOUT 300
 #define LEADER_PER_KEY_TIMING
 
 // Make home row mods usable

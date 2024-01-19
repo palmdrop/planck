@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_BASE] = LAYOUT_planck_grid(
-      KC_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,         KC_P,            SE_ARNG,
+      QK_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,         KC_P,            SE_ARNG,
       NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,     RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
       KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,       SE_MINS,         QK_REP,
       QK_REP,  _______, KC_LGUI,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
@@ -236,7 +236,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 
 
 // Backlight
-#define RGB_BASE {0x59, 0x9c, 0x32}
+#define RGB_BASE {0x49, 0x67, 0x13}
 #define RGB_LBASE {0x39, 0x7c, 0x12}
 
 #define RGB_LOWER {0x58, 0x8c, 0x69}
@@ -264,6 +264,13 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 */
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
+  [_BASE] = {
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_BASE,      RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
+  },
+  /*
   [_BASE] = {
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
@@ -305,6 +312,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,
     RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,       RGB_LADJST,     RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST
   }
+  */
 };
 
 void set_layer_color(int layer) {
@@ -319,7 +327,10 @@ void set_layer_color(int layer) {
 }
 
 bool rgb_matrix_indicators_user(void) {
+  set_layer_color(_BASE);
+  return false;
   // if (g_suspend_state || disable_layer_color) { return; }
+  /*
   switch (get_highest_layer(layer_state)) {
     case _BASE:
       set_layer_color(_BASE);
@@ -341,6 +352,7 @@ bool rgb_matrix_indicators_user(void) {
       break;
   }
     return false;
+  */
 }
 
 // Misc
@@ -446,16 +458,16 @@ bool dip_switch_update_user(uint8_t index, bool active) {
 
 void leader_end_user(void) {
   // Modifiers
+  //  C + S + T => Ctrl + Shift + T
+  if(leader_sequence_three_keys(KC_C, KC_S, KC_T)) {
+    tap_code16(LCTL(LSFT(KC_T)));
+  } else 
   // C + T => Ctrl + T
   if(leader_sequence_two_keys(KC_C, KC_T)) {
-    SEND_STRING(SS_LCTRL("t"));
-  } else 
-  //  C + S + T => Ctrl + Shift + T
-  if(leader_sequence_three(KC_C, KC_S, KC_T)) {
-    SEND_STRING(SS_LCTRL(SS_LSFT("t")));
+    tap_code16(LCTL(KC_T));
   } else 
   // D => Delete
-  if(leader_sequence_one_keys(KC_D)) {
+  if(leader_sequence_one_key(KC_D)) {
     tap_code16(KC_DEL);
   }
 }
