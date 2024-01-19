@@ -17,7 +17,7 @@
 #pragma once
 
 // Custom settings
-#define DISABLE_LAYER_LED
+#define DISABLE_LAYER_LED // Disables layer indicator leds
 
 // Standard settings
 #define NO_AUTO_SHIFT_NUMERIC
