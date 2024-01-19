@@ -265,6 +265,19 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
   }
 }
 
+// Per key settings
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    /* Example
+    case SFT_T(KC_F):
+      return TAPPING_TERM + 50;
+    */
+    default:
+      return TAPPING_TERM;
+  }
+}
+
+
 // Misc
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
