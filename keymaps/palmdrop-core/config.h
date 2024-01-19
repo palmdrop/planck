@@ -16,6 +16,7 @@
 
 #pragma once
 
+#define DISABLE_LAYER_LED
 #define TAPPING_TERM 200
 
 
