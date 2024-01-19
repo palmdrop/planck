@@ -5,7 +5,7 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] add dual function for extended thumb keys
 - [ ] try this https://docs.qmk.fm/#/feature_advanced_keycodes?id=alt-escape-for-alt-tab
 - [X] macros on the fly by "recording" a keysequence, then executing that using command?
-- [ ] disable caps lock with escape
+- [X] disable caps lock with escape
 - [ ] switch to https://qmk.github.io/qmk_distro_wsl/
   * compilation without WSL is way too slow
 
@@ -20,3 +20,4 @@ Inpsired by https://github.com/Felerius/planck-layout
 # EXPERIMENTS
 * oneshot shift on right thumb (RAISE) for easy capitalization of letters
 * leader keys for complex shortcuts and one-handed modifiers
+* hold space to enter navigation layer

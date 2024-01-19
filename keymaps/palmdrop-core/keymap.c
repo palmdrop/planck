@@ -51,8 +51,10 @@ enum planck_keycodes {
 #define UNDO  LCTL(KC_Z)
 #define REDO  LCTL(LSFT(KC_Z))
 
-// Dummy keycodes for extending mod-tap behavior
+// Dummy keycodes for extended behavior
 #define DMY1 KC_F23
+
+#define UR_CAPS KC_F22
 
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
@@ -60,6 +62,7 @@ enum planck_keycodes {
 #define RAISE  LT(_RAISE, DMY1)
 #define ADJUST MO(_ADJUST)
 #define NAVESQ LT(_NAVIGATION, KC_ESC)
+#define NAVSPC LT(_NAVIGATION, KC_SPC)
 
 // Combos
 const uint16_t PROGMEM meta_combo[]      = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END};
@@ -118,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       QK_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,         KC_P,            SE_ARNG,
       NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,     RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
       KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,       SE_MINS,         QK_REP,
-      QK_REP,  _______, KC_LGUI,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
+      QK_REP,  _______, KC_LGUI,      KC_LALT,        LOWER,        NAVSPC,  NAVSPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
   ),
 
   /* Lower
@@ -190,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  // NOTE: Could maybe access rec2 by double-tapping?
                  // NOTE: could also mabye use leader key for creating macros?
       DM_PLY1,   DM_REC1,  _______,  _______,  _______, _______,   _______,  _______,  CTLSFTI,  _______,  LSFT(KC_INS), CTLALTDEL,
-      KC_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
+      UR_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
       _______,   _______,  _______,  CW_TOGG,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
       _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______
   ),
@@ -365,10 +368,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
 }
 
-void disable_caps() {
-  unregister_code16(KC_LSFT);
-  unregister_code16(KC_CAPS);
+bool is_caps_enabled = false;
+void toggle_caps(void) {
+  is_caps_enabled = !is_caps_enabled;
+  tap_code16(KC_CAPS);
+}
+
+void disable_caps(void) {
   caps_word_off();
+
+  if(is_caps_enabled) {
+    tap_code16(KC_CAPS);
+    is_caps_enabled = false;
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -389,8 +401,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } 
       break;
     case NAVESQ: 
-      disable_caps();
-      break
+      if (record->tap.count && record->event.pressed) {
+        disable_caps();
+        return true;
+      }
+      break;
+    case UR_CAPS: 
+      if (record->event.pressed) {
+        toggle_caps();
+      }
+      return false;
   }
   return true;
 }
