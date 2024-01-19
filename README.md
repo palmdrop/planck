@@ -6,7 +6,7 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] macros on the fly by "recording" a keysequence, then executing that using command?
 - [X] disable caps lock with escape
 - [ ] home row mods on all layers
-- [ ] special typing mode for camelcase, underscore for spaces, caps etc
+- [X] special typing mode for camelcase, underscore for spaces, caps etc
 - [ ] record dynamic macro all the time, stop with escape, then swap to recordingthe next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
 - [ ] left-handed command layer access and easy backspace with left hand
 - [X] type "~"  without having to press space (use macro?)
@@ -26,4 +26,5 @@ Inpsired by https://github.com/Felerius/planck-layout
 # EXPERIMENTS
 * oneshot shift on right thumb (RAISE) for easy capitalization of letters
 * leader keys for complex shortcuts and one-handed modifiers
+* special layers for variable name input in different conventions. Probably totally unnecessary but slightly fun.
 * ~~hold space to enter navigation layer~~

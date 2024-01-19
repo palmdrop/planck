@@ -34,7 +34,13 @@ enum planck_layers {
 
   // Special
   _COMMAND,
-  _ADJUST
+  _ADJUST,
+
+  // Variable input
+  _CAMEL,
+  _SNAKE, // doubles as CONSTANT layer when shift is held
+  // _CONSTANT,
+  _KEBAB
 };
 
 enum planck_keycodes {
@@ -44,12 +50,15 @@ enum planck_keycodes {
 };
 
 enum custom_keycodes {
-  UR_OSFT = SAFE_RANGE,
+  UR_OSFT = SAFE_RANGE, // Custom one-shot shift
   UR_CAPS,
-  UR_TILD,
+  UR_TILD, // ~
   UR_GRV,  // `
-  UR_CIRC   // ^
+  UR_CIRC,  // ^
+
+  UR_CONSTANT
 };
+
 // Multi-key codes
 #define CTLSFTI   LCTL(LSFT(KC_I))
 #define CTLALTDEL LCTL(LALT(KC_DEL))
@@ -58,15 +67,6 @@ enum custom_keycodes {
 #define PASTE LCTL(KC_V)
 #define UNDO  LCTL(KC_Z)
 #define REDO  LCTL(LSFT(KC_Z))
-
-// Dummy keycodes for extended behavior
-// TODO: redefine using enum?
-/*
-#define DMY1 KC_F23
-
-#define UR_CAPS KC_F22
-#define UR_TILD KC_F21
-*/
 
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
@@ -110,10 +110,10 @@ tap_dance_action_t tap_dance_actions[] = {
  */
 /*
 [_LAYER] = LAYOUT_planck_grid(
-    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______,
-    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______,
-    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______,
-    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______
+    _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
 ),
 */
 
@@ -204,10 +204,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COMMAND] = LAYOUT_planck_grid(
                  // NOTE: Could maybe access rec2 by double-tapping?
                  // NOTE: could also mabye use leader key for creating macros?
-      DM_PLY1,   DM_REC1,  _______,  _______,  _______, _______,   _______,  _______,  CTLSFTI,  _______,  LSFT(KC_INS), CTLALTDEL,
-      UR_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
-      _______,   _______,  _______,  CW_TOGG,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
-      _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______
+      DM_PLY1,   DM_REC1,  _______,  _______,  _______, _______,   _______,  _______,    CTLSFTI,     _______,      LSFT(KC_INS), CTLALTDEL,
+      UR_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  TO(_CAMEL), TO(_SNAKE),  TO(_KEBAB),   UR_CONSTANT,  _______,
+      _______,   _______,  _______,  CW_TOGG,  _______, _______,   _______,  _______,    _______,     _______,      _______,      _______,
+      _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,    _______,     _______,      _______,      _______
   ),
 
   /* Adjust
@@ -226,7 +226,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, BL_DOWN, BL_UP,   BL_TOGG, _______, QK_BOOT,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-  )
+  ),
+
+  /* camelCase
+  * ,-----------------------------------------------------------------------------------.
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |Oneshot shift|      |      |      |      |      |
+  * `-----------------------------------------------------------------------------------'
+  */
+  [_CAMEL] = LAYOUT_planck_grid(
+      _______,   _______,  _______,  _______,  _______,  _______,        _______,        _______,  _______,  _______,  _______,  _______,
+      TO(_BASE), _______,  _______,  _______,  _______,  _______,        _______,        _______,  _______,  _______,  _______,  _______,
+      _______,   _______,  _______,  _______,  _______,  _______,        _______,        _______,  _______,  _______,  _______,  _______,
+      _______,   _______,  _______,  _______,  _______,  OSM(MOD_LSFT),  OSM(MOD_LSFT),  _______,  _______,  _______,  _______,  _______
+  ),
+
+  /* snake_case
+  * ,-----------------------------------------------------------------------------------.
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |  underscore |      |      |      |      |      |
+  * `-----------------------------------------------------------------------------------'
+  */
+  [_SNAKE] = LAYOUT_planck_grid(
+      _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+      TO(_BASE), _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+      _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+      _______,   _______,  _______,  _______,  _______,  SE_UNDS,  SE_UNDS,  _______,  _______,  _______,  _______,  _______
+  ),
+
+  /* kebab-case
+  * ,-----------------------------------------------------------------------------------.
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |      |      |      |      |      |      |      |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |      |      |      |      |      |    minus    |      |      |      |      |      |
+  * `-----------------------------------------------------------------------------------'
+  */
+  [_KEBAB] = LAYOUT_planck_grid(
+      _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+      TO(_BASE), _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+      _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+      _______,   _______,  _______,  _______,  _______,  SE_MINS,  SE_MINS,  _______,  _______,  _______,  _______,  _______
+  ),
 };
 
 // Per key settings
@@ -434,6 +488,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
 
   switch (keycode) {
+    /* LAYER MANAGEMENT */
+
+    // Workaround for adding oneshot shift on tap to layer switch key for raise
+    // Raise will act as oneshot shift when tapped
     case RAISE: 
       // When tapping RAISE, trigger a oneshot shift modifier.
       if (record->tap.count && record->event.pressed) {
@@ -441,8 +499,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;        
       } 
       break;
+    // Custom management of navigation layer / escape key when caps is enabled
+    // If caps is enabled, escape will disable it automatically
     case NAVESQ: 
       if (record->tap.count && record->event.pressed) {
+        clear_mods();
+
         if (is_caps_enabled) {
           disable_caps();
           return false;
@@ -451,11 +513,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
       break;
+    // Enter CONSTANT_CASE layer by moving to snake_case layer with shift modifier activated
+    case UR_CONSTANT: 
+      if (record->event.pressed) {
+        layer_move(_SNAKE);
+        register_mods(MOD_BIT(KC_LSFT));
+      }
+
+      return false;
+      break;
+
+    // Make sure mods are cleared when moving to base layer
+    case TO(_BASE):
+      if (record->event.pressed) {
+        clear_mods();
+      }
+
+      return true;
+      break;
+    /* CUSTOM KEYCODES */
+
+    // Manually manage caps to easily keep track of caps state
     case UR_CAPS: 
       if (record->event.pressed) {
         toggle_caps();
       }
       return false;
+    // Make it easier to send ~, ` and ^ on swedish layouts
     case UR_TILD: 
       if (record->event.pressed) {
         SEND_STRING("~");
