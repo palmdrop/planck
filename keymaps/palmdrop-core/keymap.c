@@ -42,12 +42,6 @@ enum planck_keycodes {
   EXT_PLV
 };
 
-// Layers
-#define LOWER  LT(_LOWER, KC_TAB)
-#define RAISE  LT(_RAISE, KC_BSPC)
-#define ADJUST MO(_ADJUST)
-#define NAVESQ LT(_NAVIGATION, KC_ESC)
-
 // Multi-key codes
 #define CTLSFTI   LCTL(LSFT(KC_I))
 #define CTLALTDEL LCTL(LALT(KC_DEL))
@@ -56,6 +50,16 @@ enum planck_keycodes {
 #define PASTE LCTL(KC_V)
 #define UNDO  LCTL(KC_Z)
 #define REDO  LCTL(LSFT(KC_Z))
+
+// Dummy keycodes for extending mod-tap behavior
+#define DMY1 KC_F23
+
+// Layers
+#define LOWER  LT(_LOWER, KC_TAB)
+// #define RAISE  LT(_RAISE, KC_BSPC)
+#define RAISE  LT(_RAISE, DMY1)
+#define ADJUST MO(_ADJUST)
+#define NAVESQ LT(_NAVIGATION, KC_ESC)
 
 // Combos
 const uint16_t PROGMEM meta_combo[]      = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END};
@@ -358,43 +362,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		return false;
 	}
 
-  /*
   switch (keycode) {
-    case BASE:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_BASE);
+    /*
+    case RAISE: 
+      if (record->tap.count && record->event.pressed) {
+        tap_code16(QK_REP); 
+        return false;        
       }
       return false;
-      break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          writePinLow(E6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          writePinHigh(E6);
-        #endif
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-      }
-      return false;
-      break;
+    */
+    default: 
+      return true;
   }
-  */
-  return true;
 }
 
 bool muse_mode = false;
