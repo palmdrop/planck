@@ -47,8 +47,6 @@ enum planck_keycodes {
 #define NAV   MO(_NAVIGATION)
 #define CMD   MO(_COMMAND)
 
-#define 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -84,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     SE_TILD, KC_EXLM, SE_DQUO, KC_HASH, SE_CURR, KC_PERC, SE_AMPR, SE_SLSH, SE_LPRN, SE_RPRN, SE_EQL,  SE_QUES,
     SE_ACUT, SE_GRV,  SE_QUOT, SE_LPRN, SE_RPRN, SE_DLR,  SE_BSLS, SE_LCBR, SE_RCBR, SE_TILD, SE_CIRC, SE_ASTR,
     KC_LSFT, SE_LABK, SE_RABK, SE_LBRC, SE_RBRC, SE_PIPE, SE_AT,   SE_BSLS, SE_SCLN, SE_COLN, SE_UNDS, SE_PLUS,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RFSF_T(KC_ENTER)
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RSFT_T(KC_ENTER)
 ),
 
 /* Raise
