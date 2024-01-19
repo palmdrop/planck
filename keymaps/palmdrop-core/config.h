@@ -27,6 +27,8 @@
 #define QUICK_TAP_TERM 0
 #define DEBOUNCE 10
 #define COMBO_TERM 50
+#define LEADER_TIMEOUT 200
+#define LEADER_PER_KEY_TIMING
 
 // Make home row mods usable
 #define PERMISSIVE_HOLD
@@ -44,7 +46,6 @@
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_TIME_TO_MAX 60
 #define MOUSEKEY_INTERVAL 20
-// #define MOUSEKEY_MAX_SPEED 5
 
 #define MOUSEWHEEL_INTERVAL 100
 #define MOUSEWHEEL_MAX_SPEED 8
