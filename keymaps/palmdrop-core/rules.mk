@@ -11,6 +11,8 @@ DYNAMIC_MACRO_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 LEADER_ENABLE = yes
 
+CONSOLE_ENABLE = yes
+
 SRC += features/layer_lock.c
 SRC += features/sentence_case.c
 SRC += features/select_word.c
