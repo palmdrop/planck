@@ -12,6 +12,7 @@ LEADER_ENABLE = yes
 
 SRC += features/layer_lock.c
 SRC += features/sentence_case.c
+SRC += features/select_word.c
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += muse.c

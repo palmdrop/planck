@@ -8,11 +8,11 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] add layer-lock key for certain layers
 - [X] try sentence case: https://getreuer.info/posts/keyboards/sentence-case/index.html
   - [-] alternatively, try the next sentence macro: https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
-- [ ] try word selection feature: https://getreuer.info/posts/keyboards/select-word/index.html
-  - [ ] alternatively, using macros: https://getreuer.info/posts/keyboards/macros/index.html#select-word-macro
+- [X] try word selection feature: https://getreuer.info/posts/keyboards/select-word/index.html
+  - [-] alternatively, using macros: https://getreuer.info/posts/keyboards/macros/index.html#select-word-macro
 - [X] home row mods on all (relevant) layers
 - [X] special typing mode for camelcase, underscore for spaces, caps etc
-- [ ] record dynamic macro all the time, stop with escape, then swap to recordingthe next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
+- [ ] record dynamic macro all the time, stop with escape, then swap to recording the next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
 - [ ] left-handed command layer access and easy backspace with left hand
 - [X] type "~"  without having to press space (use macro?)
 - [ ] try this https://docs.qmk.fm/#/feature_advanced_keycodes?id=alt-escape-for-alt-tab
@@ -37,4 +37,5 @@ Inpsired by https://github.com/Felerius/planck-layout
 * leader keys for complex shortcuts and one-handed modifiers
 * special layers for variable name input in different conventions. Probably totally unnecessary but slightly fun.
 * sentence case feature
+* word selection feature
 * ~~hold space to enter navigation layer~~
