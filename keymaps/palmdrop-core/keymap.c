@@ -226,7 +226,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // Ensure that hold action is prioritized for layer keys
     // This ensures that it's possible to roll to these layers without accidentally triggering the tap action.
-    case RAISE:
+    // case RAISE:
     case LOWER:
       return true;
     default:
@@ -364,11 +364,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case RAISE: 
+      // When tapping RAISE, trigger a oneshot shift modifier.
       if (record->tap.count && record->event.pressed) {
-        tap_code16(QK_REP); 
+        add_oneshot_mods(MOD_BIT(KC_LSFT));
         return false;        
-      }
-      break;
+      } 
   }
   return true;
 }
