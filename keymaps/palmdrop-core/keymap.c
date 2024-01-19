@@ -469,5 +469,10 @@ void leader_end_user(void) {
   // D => Delete
   if(leader_sequence_one_key(KC_D)) {
     tap_code16(KC_DEL);
+  } else 
+  // G + U => Commit and push basic git updates
+  // NOTE: Mostly used for note-taking and writing repos, not code.
+  if(leader_sequence_two_keys(KC_G, KC_U)) {
+    SEND_STRING("git add .; git commit -m \"update\"; git push");
   }
 }
