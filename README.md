@@ -6,6 +6,7 @@ Inpsired by https://github.com/Felerius/planck-layout
 - [X] macros on the fly by "recording" a keysequence, then executing that using command?
 - [X] disable caps lock with escape
 - [ ] special typing mode for camelcase, underscore for spaces, caps etc
+- [ ] record dynamic macro all the time, stop with escape, then swap to recordingthe next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
 - [X] type "~"  without having to press space (use macro?)
 - [ ] try this https://docs.qmk.fm/#/feature_advanced_keycodes?id=alt-escape-for-alt-tab
 - [ ] switch to https://qmk.github.io/qmk_distro_wsl/
