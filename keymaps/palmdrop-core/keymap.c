@@ -44,8 +44,11 @@ enum planck_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define NAV   MO(_NAVIGATION)
-#define CMD   MO(_COMMAND)
+#define ADJUST MO(_ADJUST)
+#define NAVESQ LT(_NAVIGATION, KC_ESC)
+
+#define CTLSFTI LCTL(LSFT(KC_I))
+#define CTLALTDEL LCTL(LSFT(KC_I))
 
 // Combos
 const uint16_t PROGMEM meta_combo[] = {KC_S, KC_D, COMBO_END};
@@ -57,6 +60,36 @@ combo_t key_combos[] = {
   COMBO(escape_combo, KC_ESC),
   COMBO(backspace_combo, KC_BSPC)
 };
+
+// Tap dance
+enum tap_dance_codes {
+  TD_GG
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_GG]= ACTION_TAP_DANCE_DOUBLE(KC_END, KC_HOME)
+};
+
+// Empty layer
+/*
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+/*
+[_LAYER] = LAYOUT_planck_grid(
+    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______,
+    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______,
+    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______,
+    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______
+),
+*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_BASE] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,         KC_P,            SE_ARNG,
-    KC_ESC,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,     RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
+    NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,     RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
     KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,       SE_MINS,         KC_BSPC,
-    _______, _______, KC_LGUI,      LALT_T(KC_TAB), LOWER,        KC_SPC,  KC_SPC,  RAISE,   KC_RSFT,  _______,      KC_TAB,          RSFT_T(KC_ENTER)
+    _______, _______, KC_LGUI,      LALT_T(KC_TAB), LOWER,        KC_SPC,  KC_SPC,  RAISE,   KC_RSFT,  ADJUST,       KC_TAB,          RSFT_T(KC_ENTER)
 ),
 
 /* Lower
@@ -114,13 +147,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,   _______, _______, _______, _______, _______, _______, _______, KC_0, _______, _______, _______
 ),
 
+/* Navigation
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_NAVIGATION] = LAYOUT_planck_grid(
+    _______,   _______,  LCTL_T(KC_RGHT),  _______,         LSFT_T(KC_UNDO), _______,          KC_COPY,  KC_UNDO,  KC_HOME,  KC_ENT,   KC_PSTE,  KC_BSPC,
+    _______,   KC_END,   _______,          LSFT_T(KC_DEL),  KC_LCTL,         TD(TD_GG),        KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_WH_U,  RCTL_T(KC_BSPC),
+    KC_LSFT,   _______,  KC_BSPC,          KC_BSPC,         _______,         LCTL_T(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_WH_D,  _______,
+    _______,   _______,  _______,          _______,         _______,         KC_BTN1,          KC_BTN1,  KC_BTN3,  _______,  _______,  _______,  _______
+),
+
+/* Command
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |C+S+I |      |S+INS |C+A+D |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Caps |      |SysRq |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |CpsWrd|      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_COMMAND] = LAYOUT_planck_grid(
+    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  CTLSFTI,  _______,  LSFT(KC_INS), CTLALTDEL,
+    KC_CAPS,   _______,  KC_SYRQ,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
+    _______,   _______,  _______,  CW_TOGG,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______,
+    _______,   _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,      _______
+),
+
 /* Adjust
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-|  Del |
+ * |      |      |MPrev |MPlay |MNext |      |      | Bri- | Bri+ |      | SysRq|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |      |      |
+ * |      |      | Vol- | Vol+ |Mute  |      |      |KBri- |KBri+ |KBTgl |      | Boot |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -140,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
