@@ -277,7 +277,7 @@ void set_layer_color(int layer) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || disable_layer_color) { return; }
+  // if (g_suspend_state || disable_layer_color) { return; }
   switch (get_highest_layer(layer_state)) {
     case _BASE:
       set_layer_color(_BASE);
