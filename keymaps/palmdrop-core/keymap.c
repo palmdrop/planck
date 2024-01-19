@@ -149,25 +149,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Navigation
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |C+Rght|      |S+Undo|      | Copy | Undo | Home |Enter |Paste | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      | End  |      |Del/S | Ctrl |  GG  | Left | Down |  Up  |Right | WUp  |C+Bspc|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |Shift |      | Bspc | Bspc |      |C+Left|MLeft |MDown | MUp  |MRght |WDown |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      | Mouse btn 1 |Mbtn3 |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NAVIGATION] = LAYOUT_planck_grid(
-    _______,   _______,  LCTL_T(KC_RGHT),  _______,         LSFT_T(KC_UNDO), _______,          KC_COPY,  KC_UNDO,  KC_HOME,  KC_ENT,   KC_PSTE,  KC_BSPC,
-    _______,   KC_END,   _______,          LSFT_T(KC_DEL),  KC_LCTL,         TD(TD_GG),        KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_WH_U,  RCTL_T(KC_BSPC),
-    KC_LSFT,   _______,  KC_BSPC,          KC_BSPC,         _______,         LCTL_T(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_WH_D,  _______,
-    _______,   _______,  _______,          _______,         _______,         KC_BTN1,          KC_BTN1,  KC_BTN3,  _______,  _______,  _______,  _______
+    _______,   _______,  LCTL(KC_RGHT),  _______,         LSFT(KC_UNDO),  _______,        KC_COPY,  KC_UNDO,  KC_HOME,  KC_ENT,   KC_PSTE,  KC_BSPC,
+    _______,   KC_END,   _______,        LSFT_T(KC_DEL),  KC_LCTL,        TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_WH_U,  RCTL(KC_BSPC),
+    KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,        LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_WH_D,  _______,
+    _______,   _______,  _______,        _______,         _______,        KC_BTN1,        KC_BTN1,  KC_BTN3,  _______,  _______,  _______,  _______
 ),
 
 /* Command
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |C+S+I |      |S+INS |C+A+D |
+ * |      |      |      |      |      |      |      |      |C+S+I |      |S+Ins |C+A+D |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Caps |      |SysRq |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -203,6 +203,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+// Backlight
+#define RGB_BASE {0x59, 0x9c, 0x32}
+#define RGB_LOWER {0x58, 0x8c, 0x69}
+#define RGB_RAISE {0x38, 0x8c, 0x6e}
+#define RGB_NAV {0x58, 0x8c, 0x69}
+#define RGB_CMD {0x58, 0x8c, 0x69}
+#define RGB_ADJST {0x58, 0x8c, 0x69}
+
+/*
+[_LAYER] = {
+  RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP,
+  RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP,
+  RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP,
+  RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP, RGB_TMP
+},
+*/
+
+const uint8_t PROGEM ledmap[][DRIVER_LED_TOTAL][3] = {
+  [_BASE] = {
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
+  },
+
+  [_LOWER] = {
+    RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,
+    RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,
+    RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER,
+    RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER, RGB_LOWER
+  },
+
+  [_RAISE] = {
+    RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,
+    RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,
+    RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE,
+    RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE, RGB_RAISE
+  },
+
+  [_NAVIGATION] = {
+    RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,
+    RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,
+    RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV,
+    RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV, RGB_NAV
+  },
+
+  [_COMMAND] = {
+    RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,
+    RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,
+    RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD,
+    RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD, RGB_CMD
+  },
+
+  [_ADJUST] = {
+    RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,
+    RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,
+    RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST,
+    RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST, RGB_ADJST
+  }
+}
+
+// Misc
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
