@@ -363,17 +363,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
 
   switch (keycode) {
-    /*
     case RAISE: 
       if (record->tap.count && record->event.pressed) {
         tap_code16(QK_REP); 
         return false;        
       }
-      return false;
-    */
-    default: 
-      return true;
+      break;
   }
+  return true;
 }
 
 bool muse_mode = false;

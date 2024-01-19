@@ -23,7 +23,7 @@
 #define NO_AUTO_SHIFT_NUMERIC
 #define NO_AUTO_SHIFT_ALPHA
 
-#define TAPPING_TERM 150 
+#define TAPPING_TERM 170 
 #define QUICK_TAP_TERM 0
 #define DEBOUNCE 10
 #define COMBO_TERM 50
