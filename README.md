@@ -1,3 +1,5 @@
+Personal keymap for the Planck keyboard.
+
 Inpsired by https://github.com/Felerius/planck-layout
 
 # TODO
