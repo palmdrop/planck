@@ -322,20 +322,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 #define RGB_BASE {0x07, 0x00, 0x00}
 #define RGB_LBASE {0x01, 0x00, 0x00}
 
-#define RGB_LOWER {0x58, 0x8c, 0x69}
-#define RGB_LLOWER {0x28, 0x5c, 0x39}
-
-#define RGB_RAISE {0x38, 0x8c, 0x6e}
-#define RGB_LRAISE {0x08, 0x5c, 0x3e}
-
-#define RGB_NAV {0x58, 0x8c, 0x69}
-#define RGB_LNAV {0x38, 0x6c, 0x49}
-
-#define RGB_CMD {0x58, 0x8c, 0x69}
-#define RGB_LCMD {0x38, 0x6c, 0x49}
-
-#define RGB_ADJST {0x58, 0x8c, 0x69}
-#define RGB_LADJST {0x38, 0x6c, 0x49}
+#define RGB_SYS {0xFF, 0xFF, 0x00}
+#define RGB_WARN {0xFF, 0x00, 0x00}
 
 /*
 [_LAYER] = {
@@ -354,14 +342,12 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_LBASE,     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
   },
 
-  /*
   [_ADJUST] = {
-    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
-    RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_SYS,  RGB_SYS,  RGB_SYS,  RGB_BASE, RGB_BASE, RGB_SYS,  RGB_SYS,  RGB_BASE, RGB_SYS,  RGB_BASE,
+    RGB_BASE, RGB_BASE, RGB_SYS,  RGB_SYS,  RGB_SYS,  RGB_BASE, RGB_BASE, RGB_SYS,  RGB_SYS,  RGB_SYS,  RGB_BASE, RGB_WARN,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,      RGB_LBASE,     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE
   },
-  */
   /*
   [_BASE] = {
     RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE, RGB_BASE,
@@ -419,32 +405,23 @@ void set_layer_color(int layer) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-  set_layer_color(_BASE);
-  return false;
-  // if (g_suspend_state || disable_layer_color) { return; }
   /*
+  if (g_suspend_state || disable_layer_color) { 
+    return false; 
+  }
+  */
+
   switch (get_highest_layer(layer_state)) {
-    case _BASE:
-      set_layer_color(_BASE);
-      break;
-    case _LOWER:
-      set_layer_color(_LOWER);
-      break;
-    case _RAISE:
-      set_layer_color(_RAISE);
-      break;
-    case _NAVIGATION:
-      set_layer_color(_NAVIGATION);
-      break;
-    case _COMMAND:
-      set_layer_color(_COMMAND);
-      break;
-    case _ADJUST:
+    case _ADJUST: 
       set_layer_color(_ADJUST);
       break;
+    case _BASE: 
+    default:
+      set_layer_color(_BASE);
+      break;
   }
-    return false;
-  */
+
+  return false;
 }
 
 // Misc
