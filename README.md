@@ -14,6 +14,7 @@ Inpsired by https://github.com/Felerius/planck-layout
   - [-] alternatively, using macros: https://getreuer.info/posts/keyboards/macros/index.html#select-word-macro
 - [X] home row mods on all (relevant) layers
 - [X] special typing mode for camelcase, underscore for spaces, caps etc
+- [ ] remove word select word feature in favor of vim mode
 - [ ] match leader sequences eagerly, i.e if a sequence no longer matches, execute the LONGEST matching sequence and send the other presses as regular key codes.
 - [ ] scavanage https://github.com/drootz/qmk_firmware/tree/dz65_drootz/keyboards/dztech/dz65rgb/keymaps/drootz#LEADER-KEY-BINDINGS for goodness.
 - [ ] record dynamic macro all the time, stop with escape, then swap to recording the next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
@@ -35,8 +36,10 @@ Inpsired by https://github.com/Felerius/planck-layout
 
 # ADDITIONAL FEATURES
 * layer lock from https://getreuer.info/posts/keyboards/layer-lock/index.html
+* qmk vim from https://github.com/andrewjrae/qmk-vim
 
 # EXPERIMENTS
+* qmk vim support
 * oneshot shift on right thumb (RAISE) for easy capitalization of letters
 * leader keys for complex shortcuts and one-handed modifiers
 * special layers for variable name input in different conventions. Probably totally unnecessary but slightly fun.
