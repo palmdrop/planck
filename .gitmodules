@@ -2,3 +2,6 @@
 	path = qmk_firmware
 	url = https://github.com/palmdrop/qmk_firmware.git
 	branch = master
+[submodule "keymaps/palmdrop-core/qmk-vim"]
+	path = keymaps/palmdrop-core/qmk-vim
+	url = https://github.com/andrewjrae/qmk-vim.git

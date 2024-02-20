@@ -16,6 +16,7 @@
 
 
 #include QMK_KEYBOARD_H
+#include "qmk-vim/src/vim.h"
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
 #include "features/layer_lock.h"
@@ -480,6 +481,11 @@ bool caps_word_press_user(uint16_t keycode) {
 bool is_sentence_case_enabled = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Process case modes
+  if (!process_vim_mode(keycode, record)) {
+    return false;
+  }
+
   // Custom code for stop recording dynamic macros using escape
   // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_dynamic_macros.md#dynamic_macro_user_call
 	uint16_t macro_kc = ((keycode == NAVESQ) ? DM_RSTP : keycode);

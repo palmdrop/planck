@@ -1,3 +1,5 @@
+include keyboards/planck/keymaps/$(KEYMAP)/qmk-vim/rules.mk
+
 AUDIO_ENABLE = no
 
 # RGB_MATRIX_ENABLE = no
