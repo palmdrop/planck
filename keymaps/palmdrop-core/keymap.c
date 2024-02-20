@@ -59,7 +59,9 @@ enum custom_keycodes {
   CK_CAPS, // custom caps
   CK_LLCK, // layer lock
   CK_SNTC, // sentence case feature
+  // TODO: remove select word feature in favor of qmk vim mode
   CK_SWRD, // select word feature
+  CK_VIM,  // qmk-vim mode feature
 
   // Dummy keycodes
   CK_TILD, // ~
@@ -198,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   _______,  LCTL(KC_RGHT),  _______,         REDO,     _______,        COPY,     UNDO,     KC_HOME,  KC_ENT,           PASTE,           KC_BSPC,
       TO(_BASE), KC_END,   CK_SWRD,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    RSFT_T(KC_RGHT),  KC_WH_U,         RCTL(KC_BSPC),
       KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,  LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,          KC_WH_D,         _______,
-      _______,   _______,  _______,        CK_LLCK,         _______,  KC_BTN1,        KC_BTN1,  KC_BTN2,  _______,  _______,          _______,         _______
+      _______,   _______,  _______,        CK_LLCK,         CK_VIM,   KC_BTN1,        KC_BTN1,  KC_BTN2,  _______,  _______,          _______,         _______
   ),
 
   /* Command
@@ -590,6 +592,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_sentence_case_enabled = !is_sentence_case_enabled;
       }
       return false;
+    case CK_VIM: 
+      if (record->event.pressed) {
+        toggle_vim_mode();
+      }
+      return true;
   }
   return true;
 }
