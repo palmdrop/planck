@@ -56,10 +56,9 @@ enum custom_keycodes {
   // Special functions
   CK_OSFT = SAFE_RANGE, // custom one-shot shift
   CK_CAPS, // custom caps
+  CK_CWTG, // custom caps word toggle
   CK_LLCK, // layer lock
   CK_SNTC, // sentence case feature
-  // TODO: remove select word feature in favor of qmk vim mode
-  CK_SWRD, // select word feature
   CK_VIM,  // qmk-vim mode feature
 
   // Dummy keycodes
@@ -79,6 +78,7 @@ enum custom_keycodes {
 #define PASTE LCTL(KC_V)
 #define UNDO  LCTL(KC_Z)
 #define REDO  LCTL(LSFT(KC_Z))
+#define SFTCW LSFT_T(CK_CWTG)
 
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
@@ -142,10 +142,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_BASE] = LAYOUT_planck_grid(
-      QK_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,          KC_O,         KC_P,            SE_ARNG,
-      NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,          RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
-      KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM,       KC_DOT,       SE_MINS,         QK_REP,
-      _______, _______, _______,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   OSM(MOD_LSFT), ADJUST,       _______,         KC_ENTER
+      QK_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,            SE_ARNG,
+      NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,    RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
+      KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       SE_MINS,         QK_REP,
+      _______, _______, _______,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   SFTCW,   ADJUST,       _______,         KC_ENTER
   ),
 
   /* Lower
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_NAVIGATION] = LAYOUT_planck_grid(
       _______,   _______,  LCTL(KC_RGHT),  _______,         REDO,     _______,        COPY,     UNDO,     KC_HOME,  KC_ENT,           PASTE,           KC_BSPC,
-      TO(_BASE), KC_END,   CK_SWRD,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    RSFT_T(KC_RGHT),  KC_WH_U,         RCTL(KC_BSPC),
+      TO(_BASE), KC_END,   _______,        LSFT_T(KC_DEL),  KC_LCTL,  TD(TD_GG),      KC_LEFT,  KC_DOWN,  KC_UP,    RSFT_T(KC_RGHT),  KC_WH_U,         RCTL(KC_BSPC),
       KC_LSFT,   _______,  KC_BSPC,        KC_BSPC,         _______,  LCTL(KC_LEFT),  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,          KC_WH_D,         _______,
       _______,   _______,  _______,        CK_LLCK,         CK_VIM,   KC_BTN1,        KC_BTN1,  KC_BTN2,  _______,  _______,          _______,         _______
   ),
@@ -482,7 +482,7 @@ bool caps_word_press_user(uint16_t keycode) {
 bool is_sentence_case_enabled = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Process case modes
+  // Process vim modes
   if (!process_vim_mode(keycode, record)) {
     return false;
   }
@@ -499,6 +499,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // https://getreuer.info/posts/keyboards/layer-lock/index.html
   if (!process_layer_lock(keycode, record, CK_LLCK)) {
     return false;
+  }
+
+  if (!process_caps_word(keycode, record)) { 
+    return false; 
   }
 
   // sentence case feature
@@ -563,6 +567,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         toggle_caps();
       }
       return false;
+    // Custom keycode for triggering caps word
+    case SFTCW: 
+      if (record->tap.count && record->event.pressed) {
+        caps_word_toggle();
+        return false;
+      }
+      break;
     // Make it easier to send ~, ` and ^ on swedish layouts
     case CK_TILD: 
       if (record->event.pressed) {
