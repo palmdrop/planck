@@ -21,7 +21,6 @@
 #include "sendstring_swedish.h"
 #include "features/layer_lock.h"
 #include "features/sentence_case.h"
-#include "features/select_word.h"
 
 #ifdef AUDIO_ENABLE
 #    include "muse.h"
@@ -509,10 +508,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     !process_sentence_case(keycode, record)
   ) {
     return false;
-  }
-
-  if (!process_select_word(keycode, record, CK_SWRD)) { 
-    return false; 
   }
 
   // Other keys...
