@@ -457,8 +457,6 @@ void disable_caps(void) {
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
       // Keycodes that continue Caps Word, with shift applied.
-      case KC_MINS:
-        return true;
       case KC_A ... KC_Z:
       case SE_ARNG:
       case SE_ADIA:
@@ -467,6 +465,8 @@ bool caps_word_press_user(uint16_t keycode) {
         return true;
 
       // Keycodes that continue Caps Word, without shifting.
+      case KC_MINS:
+      case SE_MINS:
       case KC_1 ... KC_0:
       case KC_BSPC:
       case KC_DEL:
@@ -501,6 +501,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
+  // caps word e
   if (!process_caps_word(keycode, record)) { 
     return false; 
   }
