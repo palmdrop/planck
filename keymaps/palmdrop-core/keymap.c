@@ -101,12 +101,18 @@ combo_t key_combos[] = {
 
 // Tap dance
 enum tap_dance_codes {
-  TD_GG = 0
+  TD_GG = 0,
+  TD_AA, // å
+  TD_AE, // ä
+  TD_OE, // ö
 };
 
 tap_dance_action_t tap_dance_actions[] = {
-  [TD_GG] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_HOME)
+  [TD_GG] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_HOME),
+  [TD_AA] = ACTION_TAP_DANCE_DOUBLE(KC_O, SE_ARNG), // o/å
+  [TD_AE] = ACTION_TAP_DANCE_DOUBLE(KC_A, SE_ADIA), // a/ä
 };
+
 
 // Empty layer
 /*
@@ -142,10 +148,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_BASE] = LAYOUT_planck_grid(
-      QK_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,            SE_ARNG,
-      NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,    RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
-      KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       SE_MINS,         QK_REP,
-      _______, _______, _______,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   SFTCW,   ADJUST,       _______,         KC_ENTER
+      QK_LEAD, KC_Q,      KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,    TD(TD_AA),    KC_P,            SE_ARNG,
+      NAVESQ,  TD(TD_AE), LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,    RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
+      KC_LSFT, KC_Z,      KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       SE_MINS,         QK_REP,
+      _______, _______,   _______,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   SFTCW,   ADJUST,       _______,         KC_ENTER
   ),
 
   /* Lower
