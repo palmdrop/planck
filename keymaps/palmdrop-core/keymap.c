@@ -91,8 +91,8 @@ enum custom_keycodes {
 // Used as an option to the tri-layer functionality
 // When in either RAISE or LOWER layer, COMMAND layer can be entered by holding either LOWER or RAISED respectively
 // This allows me to give the layer keys an additional function when tapped in the respective layer.
-#define LRAISE LT(_COMMAND, KC_ENTER) // When in LOWER, tapping RAISE sends ENTER. When held, enters COMMAND layer.
-#define RLOWER LT(_COMMAND, KC_ESC)   // When in RAISE, tapping LOWER sends ESCAPE. When held, enters COMMAND layer.
+#define LRAISE LT(_COMMAND, KC_ENTER)  // When in LOWER, tapping RAISE sends ENTER. When held, enters COMMAND layer.
+#define RLOWER LT(_NAVIGATION, KC_ESC) // When in RAISE, tapping LOWER sends ESCAPE. When held, enters NAVIGATION layer.
 
 // Combos
 const uint16_t PROGMEM meta_combo[]      = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END};
@@ -443,9 +443,10 @@ bool rgb_matrix_indicators_user(void) {
 
 /*
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
 }
 */
+
 
 // Caps management
 bool is_caps_enabled = false;
