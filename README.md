@@ -37,6 +37,7 @@ Inspired by https://github.com/Felerius/planck-layout
 * qmk vim from https://github.com/andrewjrae/qmk-vim
 
 # EXPERIMENTS
+* tri-layer alternative by entering a layer from another layer, allowing me to add additional functionality when tapping layer-in-layer keys.
 * qmk vim support
 * oneshot shift on right thumb (RAISE) for easy capitalization of letters
 * oneshot caps word on second right thumb key

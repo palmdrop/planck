@@ -82,11 +82,17 @@ enum custom_keycodes {
 
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
-// #define RAISE  LT(_RAISE, KC_BSPC)
 #define RAISE  LT(_RAISE, CK_OSFT)
 #define ADJUST MO(_ADJUST)
 #define NAVESQ LT(_NAVIGATION, KC_ESC)
 #define NAVSPC LT(_NAVIGATION, KC_SPC)
+
+// Layer keys inside other layers
+// Used as an option to the tri-layer functionality
+// When in either RAISE or LOWER layer, COMMAND layer can be entered by holding either LOWER or RAISED respectively
+// This allows me to give the layer keys an additional function when tapped in the respective layer.
+#define LRAISE LT(_COMMAND, KC_ENTER) // When in LOWER, tapping RAISE sends ENTER. When held, enters COMMAND layer.
+#define RLOWER LT(_COMMAND, KC_ESC)   // When in RAISE, tapping LOWER sends ESCAPE. When held, enters COMMAND layer.
 
 // Combos
 const uint16_t PROGMEM meta_combo[]      = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END};
@@ -163,7 +169,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       SE_TILD, KC_EXLM, SE_DQUO, KC_HASH, SE_CURR, KC_PERC, SE_AMPR, SE_SLSH, SE_LPRN, SE_RPRN, SE_EQL,  SE_QUES,
       SE_ACUT, CK_GRV,  SE_QUOT, SE_LPRN, SE_RPRN, SE_DLR,  SE_BSLS, SE_LCBR, SE_RCBR, CK_TILD, CK_CIRC, SE_ASTR,
       _______, SE_LABK, SE_RABK, SE_LBRC, SE_RBRC, SE_PIPE, SE_AT,   SE_BSLS, SE_SCLN, SE_COLN, SE_UNDS, SE_PLUS,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, _______, _______, LRAISE,  _______, _______, _______, _______
+      
   ),
 
   /* Raise
@@ -181,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   KC_1,    KC_2,           KC_3,           KC_4,           KC_5,    KC_6,    KC_7,    KC_8,  KC_9,          KC_0,          SE_PLUS,
       TO(_BASE), KC_F1,   LALT_T(KC_F2),  LSFT_T(KC_F3),  LCTL_T(KC_F4),  KC_F5,   KC_F6,   KC_4,    KC_5,  LSFT_T(KC_6),  LCTL_T(KC_0),  KC_DOT,
       _______,   KC_F7,   KC_F8,          KC_F9,          KC_F10,         KC_F11,  KC_F12,  KC_1,    KC_2,  KC_3,          SE_MINS,       _______,
-      _______,   _______, _______,        CK_LLCK,        _______,        _______, _______, _______, KC_0,  _______,       _______,       _______
+      _______,   _______, _______,        CK_LLCK,        RLOWER,         _______, _______, _______, KC_0,  _______,       _______,       _______
   ),
 
   /* Navigation
@@ -434,9 +441,11 @@ bool rgb_matrix_indicators_user(void) {
 #endif
 */
 
+/*
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _COMMAND);
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
+*/
 
 // Caps management
 bool is_caps_enabled = false;
