@@ -324,7 +324,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-
 // Backlight
 // #define RGB_BASE {0x17, 0x37, 0x17}
 // #define RGB_LBASE {0x03, 0x07, 0x03}
@@ -625,27 +624,10 @@ void keyboard_post_init_user(void) {
 }
 
 void leader_end_user(void) {
-  // Modifiers
-  if(leader_sequence_one_key(KC_C)) {
-    set_oneshot_mods(MOD_BIT(KC_LCTL));
+  // Screen lock
+  if(leader_sequence_one_key(KC_Q)) {
+    tap_code16(G(KC_L));
   } else 
-  if(leader_sequence_one_key(KC_S)) {
-    set_oneshot_mods(MOD_BIT(KC_LSFT));
-  } else 
-  if(leader_sequence_two_keys(KC_C, KC_S) || leader_sequence_two_keys(KC_S, KC_C)) {
-    set_oneshot_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT));
-  } else 
-  /*
-  //  C + S + T => Ctrl + Shift + T
-  if(leader_sequence_three_keys(KC_C, KC_S, KC_T)) {
-    tap_code16(LCTL(LSFT(KC_T)));
-  } else 
-  // C + T => Ctrl + T
-  if(leader_sequence_two_keys(KC_C, KC_T)) {
-    // TODO: could just be C for oneshot ctrl, same for C+S creating oneshot ctrl+shift
-    tap_code16(LCTL(KC_T));
-  } else 
-  */
   // D => Delete
   if(leader_sequence_one_key(KC_D)) {
     tap_code16(KC_DEL);
