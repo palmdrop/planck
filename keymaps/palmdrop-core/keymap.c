@@ -96,7 +96,7 @@ enum custom_keycodes {
 
 // Utils for home row mods
 #define HR_A KC_A
-#define HR_S KC_S
+#define HR_S LALT_T(KC_S)
 #define HR_D LSFT_T(KC_D)
 #define HR_F LCTL_T(KC_F)
 #define HR_G KC_G
@@ -318,6 +318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case NAVSPC: 
+    case HR_S: // NOTE: Not sure if this actually helps
       return TAPPING_TERM + 50;
     default:
       return TAPPING_TERM;
@@ -333,6 +334,15 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
       return true;
     default:
       return false;
+  }
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case HR_S: // NOTE: Not sure if this actually helps
+      return false;
+    default:
+      return true;
   }
 }
 

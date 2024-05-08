@@ -31,7 +31,7 @@
 #define LEADER_PER_KEY_TIMING
 
 // Make home row mods usable
-#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD_PER_KEY
 #define TAPPING_FORCE_HOLD
 
 // Enables configuring behavior of dual function layer keys.
