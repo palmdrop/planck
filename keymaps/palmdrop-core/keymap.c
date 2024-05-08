@@ -94,10 +94,22 @@ enum custom_keycodes {
 #define LRAISE LT(_COMMAND, KC_ENTER)  // When in LOWER, tapping RAISE sends ENTER. When held, enters COMMAND layer.
 #define RLOWER LT(_NAVIGATION, KC_ESC) // When in RAISE, tapping LOWER sends ESCAPE. When held, enters NAVIGATION layer.
 
+// Utils for home row mods
+#define HR_A KC_A
+#define HR_S KC_S
+#define HR_D LSFT_T(KC_D)
+#define HR_F LCTL_T(KC_F)
+#define HR_G KC_G
+#define HR_H KC_H
+#define HR_J KC_J
+#define HR_K KC_K
+#define HR_L RSFT_T(KC_L)
+#define HR_ODIA RCTL_T(SE_ODIA)
+
 // Combos
-const uint16_t PROGMEM meta_combo[]      = {LALT_T(KC_S), LSFT_T(KC_D), COMBO_END};
-const uint16_t PROGMEM escape_combo[]    = {LCTL_T(KC_F), KC_J,         COMBO_END};
-const uint16_t PROGMEM backspace_combo[] = {KC_J,         KC_K,         COMBO_END};
+const uint16_t PROGMEM meta_combo[]      = {HR_S, HR_D, COMBO_END};
+const uint16_t PROGMEM escape_combo[]    = {HR_F, HR_J, COMBO_END};
+const uint16_t PROGMEM backspace_combo[] = {HR_J, HR_K, COMBO_END};
 
 combo_t key_combos[] = {
   COMBO(meta_combo, KC_LGUI),
@@ -148,10 +160,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-----------------------------------------------------------------------------------'
   */
   [_BASE] = LAYOUT_planck_grid(
-      QK_LEAD, KC_Q,    KC_W,         KC_E,           KC_R,         KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,            SE_ARNG,
-      NAVESQ,  KC_A,    LALT_T(KC_S), LSFT_T(KC_D),   LCTL_T(KC_F), KC_G,    KC_H,    KC_J,    KC_K,    RSFT_T(KC_L), RCTL_T(SE_ODIA), SE_ADIA,
-      KC_LSFT, KC_Z,    KC_X,         KC_C,           KC_V,         KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       SE_MINS,         QK_REP,
-      _______, _______, _______,      KC_LALT,        LOWER,        KC_SPC,  KC_SPC,  RAISE,   SFTCW,   ADJUST,       _______,         KC_ENTER
+      QK_LEAD,  KC_Q,     KC_W,     KC_E,     KC_R,   KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     SE_ARNG,
+      NAVESQ,   HR_A,     HR_S,     HR_D,     HR_F,   HR_G,    HR_H,    HR_J,    HR_K,     HR_L,     HR_ODIA,  SE_ADIA,
+      KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,   KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   SE_MINS,  QK_REP,
+      _______,  _______,  _______,  KC_LALT,  LOWER,  KC_SPC,  KC_SPC,  RAISE,   SFTCW,    ADJUST,   _______,  KC_ENTER
   ),
 
   /* Lower
@@ -186,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_RAISE] = LAYOUT_planck_grid(
       _______,   KC_1,    KC_2,           KC_3,           KC_4,           KC_5,    KC_6,    KC_7,    KC_8,  KC_9,          KC_0,          SE_PLUS,
-      TO(_BASE), KC_F1,   LALT_T(KC_F2),  LSFT_T(KC_F3),  LCTL_T(KC_F4),  KC_F5,   KC_F6,   KC_4,    KC_5,  LSFT_T(KC_6),  LCTL_T(KC_0),  KC_DOT,
+      TO(_BASE), KC_F1,   KC_F2,          LSFT_T(KC_F3),  LCTL_T(KC_F4),  KC_F5,   KC_F6,   KC_4,    KC_5,  LSFT_T(KC_6),  LCTL_T(KC_0),  KC_DOT,
       _______,   KC_F7,   KC_F8,          KC_F9,          KC_F10,         KC_F11,  KC_F12,  KC_1,    KC_2,  KC_3,          SE_MINS,       _______,
       _______,   _______, _______,        CK_LLCK,        RLOWER,         _______, _______, _______, KC_0,  _______,       _______,       _______
   ),
