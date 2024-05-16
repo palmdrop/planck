@@ -16,7 +16,8 @@ Inspired by https://github.com/Felerius/planck-layout
 - [X] remove select word feature in favor of vim mode
 - [X] type "~"  without having to press space (use macro?)
 - [X] macros on the fly by "recording" a keysequence, then executing that using command?
-- [ ] match leader sequences eagerly, i.e if a sequence no longer matches, execute the LONGEST matching sequence and send the other presses as regular key codes.
+~~- [-] match leader sequences eagerly, i.e if a sequence no longer matches, execute the LONGEST matching sequence and send the other presses as regular key codes.~~
+- [ ] home row access to enter and other common keys using left-handed combo that triggers a right-handed layer.
 - [ ] scavenge https://github.com/drootz/qmk_firmware/tree/dz65_drootz/keyboards/dztech/dz65rgb/keymaps/drootz#LEADER-KEY-BINDINGS for goodness.
 - [ ] record dynamic macro all the time, stop with escape, then swap to recording the next one. Alternate, then easily replay. Might be possible to replicate the vim repeat behavior.
 - [ ] left-handed command layer access and easy backspace with left hand
