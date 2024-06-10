@@ -92,7 +92,7 @@ enum custom_keycodes {
 // When in either RAISE or LOWER layer, COMMAND layer can be entered by holding either LOWER or RAISED respectively
 // This allows me to give the layer keys an additional function when tapped in the respective layer.
 #define LRAISE LT(_COMMAND, KC_ENTER)  // When in LOWER, tapping RAISE sends ENTER. When held, enters COMMAND layer.
-#define RLOWER LT(_NAVIGATION, KC_ESC) // When in RAISE, tapping LOWER sends ESCAPE. When held, enters NAVIGATION layer.
+#define RLOWER LT(_COMMAND, KC_ESC) // When in RAISE, tapping LOWER sends ESCAPE. When held, enters COMMAND layer.
 
 // Utils for home row mods
 #define HR_A KC_A
