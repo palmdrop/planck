@@ -74,11 +74,12 @@ enum custom_keycodes {
 #define CTLSFTI   LCTL(LSFT(KC_I))
 #define CTLALTDEL LCTL(LALT(KC_DEL))
 
-#define COPY  LCTL(KC_C)
-#define PASTE LCTL(KC_V)
-#define UNDO  LCTL(KC_Z)
-#define REDO  LCTL(LSFT(KC_Z))
-#define SFTCW LSFT_T(CK_CWTG)
+#define COPY   LCTL(KC_C)
+#define PASTE  LCTL(KC_V)
+#define UNDO   LCTL(KC_Z)
+#define REDO   LCTL(LSFT(KC_Z))
+#define SFTCW  LSFT_T(CK_CWTG)
+#define SCRSVR LSFT(LCTL(KC_F24)) // F24 is remapped to Eject using external software. This was the only way I got it to work (OSX).
 
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
@@ -91,8 +92,8 @@ enum custom_keycodes {
 // Used as an option to the tri-layer functionality
 // When in either RAISE or LOWER layer, COMMAND layer can be entered by holding either LOWER or RAISED respectively
 // This allows me to give the layer keys an additional function when tapped in the respective layer.
-#define LRAISE LT(_COMMAND, KC_ENTER)  // When in LOWER, tapping RAISE sends ENTER. When held, enters COMMAND layer.
-#define RLOWER LT(_COMMAND, KC_ESC) // When in RAISE, tapping LOWER sends ESCAPE. When held, enters COMMAND layer.
+#define LRAISE LT(_COMMAND, KC_ENTER)  // When in LOWER, tapping RAISE sends ENTER.  When held, enters COMMAND layer.
+#define RLOWER LT(_COMMAND, KC_ESC)    // When in RAISE, tapping LOWER sends ESCAPE. When held, enters COMMAND layer.
 
 // Utils for home row mods
 #define HR_A KC_A
@@ -649,6 +650,10 @@ void leader_end_user(void) {
   // Screen lock
   if(leader_sequence_one_key(KC_Q)) {
     tap_code16(G(KC_L));
+  } else 
+  // Screen saver
+  if(leader_sequence_one_key(KC_W)) {
+    tap_code16(SCRSVR);
   } else 
   // D => Delete
   if(leader_sequence_one_key(KC_D)) {
