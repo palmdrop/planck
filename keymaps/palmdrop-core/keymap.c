@@ -61,6 +61,8 @@ enum custom_keycodes {
   CK_SNTC, // sentence case feature
   CK_VIM,  // qmk-vim mode feature
 
+  CK_WSWI, // switch window
+
   // Dummy keycodes
   CK_TILD, // ~
   CK_GRV,  // `
@@ -80,6 +82,7 @@ enum custom_keycodes {
 #define REDO   LCTL(LSFT(KC_Z))
 #define SFTCW  LSFT_T(CK_CWTG)
 #define SCRSVR LSFT(LCTL(KC_F24)) // F24 is remapped to Eject using external software. This was the only way I got it to work (OSX).
+#define ALTSWI LALT_T(CK_WSWI)
 
 // Layers
 #define LOWER  LT(_LOWER, KC_TAB)
@@ -164,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       QK_LEAD,  KC_Q,     KC_W,     KC_E,     KC_R,   KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     SE_ARNG,
       NAVESQ,   HR_A,     HR_S,     HR_D,     HR_F,   HR_G,    HR_H,    HR_J,    HR_K,     HR_L,     HR_ODIA,  SE_ADIA,
       KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,   KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   SE_MINS,  QK_REP,
-      _______,  _______,  _______,  KC_LALT,  LOWER,  KC_SPC,  KC_SPC,  RAISE,   SFTCW,    ADJUST,   _______,  KC_ENTER
+      _______,  _______,  _______,  ALTSWI,   LOWER,  KC_SPC,  KC_SPC,  RAISE,   SFTCW,    ADJUST,   _______,  KC_ENTER
   ),
 
   /* Lower
@@ -621,6 +624,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CK_CIRC: 
       if (record->event.pressed) {
         SEND_STRING("^");
+      }
+      return false;
+    case ALTSWI: 
+      if (record->tap.count && record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_TAB);
+        unregister_code(KC_LALT);
       }
       return false;
 
